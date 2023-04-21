@@ -1,0 +1,12 @@
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Aplicacion/bin/Debug/net7.0/Aseguradora.Aplicacion.deps.json
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Aplicacion/bin/Debug/net7.0/Aseguradora.Aplicacion.dll
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Aplicacion/bin/Debug/net7.0/Aseguradora.Aplicacion.pdb
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Aplicacion/obj/Debug/net7.0/Aseguradora.Aplicacion.csproj.AssemblyReference.cache
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Aplicacion/obj/Debug/net7.0/Aseguradora.Aplicacion.GeneratedMSBuildEditorConfig.editorconfig
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Aplicacion/obj/Debug/net7.0/Aseguradora.Aplicacion.AssemblyInfoInputs.cache
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Aplicacion/obj/Debug/net7.0/Aseguradora.Aplicacion.AssemblyInfo.cs
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Aplicacion/obj/Debug/net7.0/Aseguradora.Aplicacion.csproj.CoreCompileInputs.cache
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Aplicacion/obj/Debug/net7.0/Aseguradora.Aplicacion.dll
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Aplicacion/obj/Debug/net7.0/refint/Aseguradora.Aplicacion.dll
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Aplicacion/obj/Debug/net7.0/Aseguradora.Aplicacion.pdb
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Aplicacion/obj/Debug/net7.0/ref/Aseguradora.Aplicacion.dll

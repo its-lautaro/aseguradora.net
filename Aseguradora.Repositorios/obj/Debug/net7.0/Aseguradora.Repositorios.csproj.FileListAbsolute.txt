@@ -1,0 +1,15 @@
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/bin/Debug/net7.0/Aseguradora.Repositorios.deps.json
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/bin/Debug/net7.0/Aseguradora.Repositorios.dll
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/bin/Debug/net7.0/Aseguradora.Repositorios.pdb
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/bin/Debug/net7.0/Aseguradora.Aplicacion.dll
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/bin/Debug/net7.0/Aseguradora.Aplicacion.pdb
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/obj/Debug/net7.0/Aseguradora.Repositorios.csproj.AssemblyReference.cache
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/obj/Debug/net7.0/Aseguradora.Repositorios.GeneratedMSBuildEditorConfig.editorconfig
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/obj/Debug/net7.0/Aseguradora.Repositorios.AssemblyInfoInputs.cache
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/obj/Debug/net7.0/Aseguradora.Repositorios.AssemblyInfo.cs
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/obj/Debug/net7.0/Aseguradora.Repositorios.csproj.CoreCompileInputs.cache
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/obj/Debug/net7.0/Aseguradora.Repositorios.csproj.CopyComplete
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/obj/Debug/net7.0/Aseguradora.Repositorios.dll
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/obj/Debug/net7.0/refint/Aseguradora.Repositorios.dll
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/obj/Debug/net7.0/Aseguradora.Repositorios.pdb
+/home/lautaro/Desktop/git/Aseguradora/Aseguradora.Repositorios/obj/Debug/net7.0/ref/Aseguradora.Repositorios.dll
