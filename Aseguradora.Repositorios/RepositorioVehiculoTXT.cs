@@ -4,10 +4,18 @@ using Aseguradora.Aplicacion;
 public class RepositorioVehiculoTXT : IRepositorioVehiculo
 {
     readonly string _nombreArch = "vehiculos.txt";
-
+    static int s_id;
+    public RepositorioVehiculoTXT()
+    {
+        //inicializar id
+        List<Vehiculo> lista = ListarVehiculos();
+        s_id = (lista.Count == 0) ? 0 : (lista.Last().Id + 1);
+    }
     public void AgregarVehiculo(Vehiculo vehiculo)
     {
         using var sw = new StreamWriter(_nombreArch, true);
+        vehiculo.Id=s_id;
+        s_id++;
         sw.WriteLine(vehiculo.Id);
         sw.WriteLine(vehiculo.Dominio);
         sw.WriteLine(vehiculo.Marca);
@@ -15,7 +23,7 @@ public class RepositorioVehiculoTXT : IRepositorioVehiculo
         sw.WriteLine(vehiculo.IdTitular);
         sw.Close();
     }
-    public void ModificarVehiculo(int id) { }
+    public void ModificarVehiculo(Vehiculo vehiculo) { }
     public void EliminarVehiculo(int id)
     {
         List<Vehiculo> vehiculos = ListarVehiculos();

@@ -2,17 +2,9 @@ namespace Aseguradora.Aplicacion;
 
 public class Vehiculo
 {
-    static int s_id = 0;
-    private int _id;
     public int Id
     {
-        get { return _id; }
-        set
-        {
-            _id = value;
-            s_id++;
-        }
-    }
+        get ;set; }
     public string? Dominio { get; set; }
     public string? Marca { get; set; }
     public int Año { get; set; }
@@ -21,7 +13,7 @@ public class Vehiculo
     public Vehiculo(){} //lo uso para hacer la lista
 
     public Vehiculo(string dominio, string marca, int año, int idtitular){
-        Id=s_id;
+        Id=-1;
         Dominio=dominio;
         Marca=marca;
         Año=año;
