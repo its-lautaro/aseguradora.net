@@ -4,8 +4,8 @@ using Aseguradora.Repositorios;
 //creamos los casos de uso inyectando dependencias
 RepositorioTitularTXT repoTitular = new RepositorioTitularTXT();
 AgregarTitularUseCase agregarTitular = new AgregarTitularUseCase(repoTitular);
-//ListarTitularesUseCase listarTitulares = new ListarTitularesUseCase(repoTitular);
-//ModificarTitularUseCase modificarTitular = new ModificarTitularUseCase(repoTitular);
+ListarTitularesUseCase listarTitulares = new ListarTitularesUseCase(repoTitular);
+ModificarTitularUseCase modificarTitular = new ModificarTitularUseCase(repoTitular);
 //EliminarTitularUseCase eliminarTitular = new EliminarTitularUseCase(repoTitular);
 //Instanciamos un titular
 Titular titular = new Titular(33123456, "García", "Juan", 221654132, "44 1413", "meme@hotmail.com");
@@ -25,12 +25,11 @@ PersistirTitular(titular3);
 PersistirTitular(titular4);
 
 //listamos los titulares utilizando un método local
-//ListarTitulares();
+ListarTitulares();
 //no debe ser posible agregar un titular con igual DNI que uno existente
-// Console.WriteLine("Intentando agregar un titular con DNI 20654987");
-// Titular titular5 = new Titular(33123456, "García", "Juan", 221654132, "44 1413", "meme@hotmail.com");
-
-// PersistirTitular(titular5); //este titular no pudo persistirse
+Console.WriteLine("Intentando agregar un titular con DNI 20654987");
+Titular titular5 = new Titular(33123456, "García", "Juan", 221654132, "44 1413", "meme@hotmail.com");
+PersistirTitular(titular5); //este titular no pudo persistirse
 
 // //Entonces vamos a modificar el titular existente
 // Console.WriteLine("Modificando el titular con DNI 33123456");
@@ -53,12 +52,12 @@ void PersistirTitular(Titular t)
         Console.WriteLine(e.Message);
     }
 }
-// void ListarTitulares()
-// {
-//     Console.WriteLine("Listando todos los titulares de vehículos");
-//     List<Titular> lista = listarTitulares.Ejecutar();
-//     foreach (Titular t in lista)
-//     {
-//         Console.WriteLine(t);
-//     }
-// }
+void ListarTitulares()
+{
+    Console.WriteLine("Listando todos los titulares de vehículos");
+    List<Titular> lista = listarTitulares.Ejecutar();
+    foreach (Titular t in lista)
+    {
+        Console.WriteLine(t);
+    }
+}
