@@ -3,18 +3,9 @@
 public abstract class Persona
 {
     public int DNI { get; set; }
-    private int _id;
-    public int Id
-    {
-        get{
-            return _id;
-        }
-        set
-        {
-            _id = value;
-            _id++;
-        }
-    }
+    protected int _id;
+    
+    public int Id{get;set;}
     public string Apellido { get; set; }
     public string Nombre { get; set; }
     public int Telefono { get; set; }

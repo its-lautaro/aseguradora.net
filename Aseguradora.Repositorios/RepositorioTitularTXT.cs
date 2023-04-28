@@ -16,6 +16,7 @@ public class RepositorioTitularTXT : IRepositorioTitular
     {
         using var sw = new StreamWriter(_nombreArch, true);
         t.Id = s_IdT;
+        s_IdT++;
         sw.WriteLine(t.Id);
         sw.WriteLine(t.DNI);
         sw.WriteLine(t.Apellido);
