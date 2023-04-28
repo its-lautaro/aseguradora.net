@@ -48,7 +48,6 @@ public class RepositorioTitularTXT : IRepositorioTitular
         
         GuardarLista(lista);
     }
-    //Consultar como implementar. Que campo se modifica?
     public void ModificarTitular(int dni)
     {
 

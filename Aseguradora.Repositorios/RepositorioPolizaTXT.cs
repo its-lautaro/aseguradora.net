@@ -17,7 +17,6 @@ public class RepositorioPolizaTXT : IRepositorioPoliza
         sw.WriteLine((poliza.Fecha_fin).ToString());
         sw.Close();
     }
-    //consultar q hace el modificar
     public void ModificarPoliza(int id) { }
     public void EliminarPoliza(int id)
     {

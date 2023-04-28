@@ -15,7 +15,6 @@ public class RepositorioVehiculoTXT : IRepositorioVehiculo
         sw.WriteLine(vehiculo.IdTitular);
         sw.Close();
     }
-    //consultar q hace el modificar
     public void ModificarVehiculo(int id) { }
     public void EliminarVehiculo(int id)
     {

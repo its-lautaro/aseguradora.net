@@ -1,7 +1,5 @@
 ﻿namespace Aseguradora.Aplicacion;
-/*
-Consultar implementacion. Deben ser abstractas las propiedades?
-*/
+
 public abstract class Persona
 {
     public int DNI { get; set; }
