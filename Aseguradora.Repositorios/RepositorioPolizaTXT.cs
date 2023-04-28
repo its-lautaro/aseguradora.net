@@ -4,10 +4,18 @@ using Aseguradora.Aplicacion;
 public class RepositorioPolizaTXT : IRepositorioPoliza
 {
     readonly string _nombreArch = "polizas.txt";
-
+    static int s_id;
+    public RepositorioPolizaTXT()
+    {
+        //inicializar id
+        List<Poliza> lista = ListarPolizas();
+        s_id = (lista.Count == 0) ? 0 : (lista.Last().Id + 1);
+    }
     public void AgregarPoliza(Poliza poliza)
     {
         using var sw = new StreamWriter(_nombreArch, true);
+        poliza.Id=s_id;
+        s_id++;
         sw.WriteLine(poliza.Id);
         sw.WriteLine(poliza.IdVehiculo);
         sw.WriteLine(poliza.ValorAsegurado);
@@ -17,7 +25,7 @@ public class RepositorioPolizaTXT : IRepositorioPoliza
         sw.WriteLine((poliza.Fecha_fin).ToString());
         sw.Close();
     }
-    public void ModificarPoliza(int id) { }
+    public void ModificarPoliza(Poliza poliza) { }
     public void EliminarPoliza(int id)
     {
         List<Poliza> polizas = ListarPolizas();

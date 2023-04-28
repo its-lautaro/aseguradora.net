@@ -1,14 +1,14 @@
 namespace Aseguradora.Aplicacion;
 
-public class ListarPolizasUseCase
+public class EliminarPolizaUseCase
 {
     private readonly IRepositorioPoliza _repo;
-    public ListarPolizasUseCase(IRepositorioPoliza repo)
+    public EliminarPolizaUseCase(IRepositorioPoliza repo)
     {
         this._repo = repo;
     }
-    public void Ejecutar()
+    public void Ejecutar(int id)
     {
-        _repo.ListarPolizas();
+        _repo.EliminarPoliza(id);
     }    
 }
