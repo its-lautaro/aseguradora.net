@@ -14,6 +14,12 @@ public class RepositorioTitularTXT : IRepositorioTitular
 
     public void AgregarTitular(Titular t)
     {
+        try{
+            unico(t);
+        }catch(Exception e){
+            throw e;
+        }
+        
         using var sw = new StreamWriter(_nombreArch, true);
         t.Id = s_IdT;
         s_IdT++;
@@ -27,6 +33,13 @@ public class RepositorioTitularTXT : IRepositorioTitular
         sw.Close();
     }
 
+    private void unico(Titular t){
+        List<Titular> list = ListarTitulares();
+        int dni = t.DNI;
+        foreach (Titular i in list){
+            if (i.DNI == dni) throw new Exception($"El titular con DNI {dni} ya existe");
+        }
+    }
     public void EliminarTitular(int dni)
     {
         List<Titular> lista = ListarTitulares();
@@ -49,9 +62,9 @@ public class RepositorioTitularTXT : IRepositorioTitular
         
         GuardarLista(lista);
     }
-    public void ModificarTitular(int dni)
+    public void ModificarTitular(Titular t)
     {
-
+        //to do
     }
 
     private void GuardarLista(List<Titular> l){
@@ -66,8 +79,6 @@ public class RepositorioTitularTXT : IRepositorioTitular
         }
         sw.Close();
     }
-
-// Cnsultar si es necesario el ?? "" o suponemos lineas nunca vacias
     public List<Titular> ListarTitulares()
     {
         List<Titular> _lista = new List<Titular>();
