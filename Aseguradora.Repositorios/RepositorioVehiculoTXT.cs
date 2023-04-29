@@ -14,7 +14,7 @@ public class RepositorioVehiculoTXT : IRepositorioVehiculo
     public void AgregarVehiculo(Vehiculo vehiculo)
     {
         using var sw = new StreamWriter(_nombreArch, true);
-        vehiculo.Id=s_id;
+        vehiculo.Id = s_id;
         s_id++;
         sw.WriteLine(vehiculo.Id);
         sw.WriteLine(vehiculo.Dominio);
@@ -23,8 +23,9 @@ public class RepositorioVehiculoTXT : IRepositorioVehiculo
         sw.WriteLine(vehiculo.IdTitular);
         sw.Close();
     }
-    public void ModificarVehiculo(Vehiculo vehiculo) { 
-        int myid=vehiculo.Id;
+    public void ModificarVehiculo(Vehiculo vehiculo)
+    {
+        int myid = vehiculo.Id;
         List<Vehiculo> vehiculos = ListarVehiculos();
         int pos_valid = -1;
         for (int i = vehiculos.Count - 1; i >= 0; i--)
@@ -41,8 +42,9 @@ public class RepositorioVehiculoTXT : IRepositorioVehiculo
         }
         else
         {
+            vehiculo.Id= vehiculos[pos_valid].Id;
+            vehiculos.RemoveAt(pos_valid);
             vehiculos.Insert(pos_valid, vehiculo);
-
         }
         GuardarLista(vehiculos);
     }
@@ -85,33 +87,35 @@ public class RepositorioVehiculoTXT : IRepositorioVehiculo
     public List<Vehiculo> ListarVehiculos()
     {
         var resultado = new List<Vehiculo>();
-        StreamReader sr;
-
-        try{
-            sr = new StreamReader(_nombreArch);
-        }catch(FileNotFoundException){
-            return resultado;
-        }
-
-        while (!sr.EndOfStream)
+        try
         {
-            var vehiculo = new Vehiculo();
-            vehiculo.Id = int.Parse(sr.ReadLine() ?? "");
-            vehiculo.Dominio = sr.ReadLine() ?? "";
-            vehiculo.Marca = sr.ReadLine() ?? "";
-            vehiculo.Año = int.Parse(sr.ReadLine() ?? "");
-            vehiculo.IdTitular = int.Parse(sr.ReadLine() ?? "");
-            resultado.Add(vehiculo);
+            using StreamReader sr = new StreamReader(_nombreArch);
+            while (!sr.EndOfStream)
+            {
+                var vehiculo = new Vehiculo();
+                vehiculo.Id = int.Parse(sr.ReadLine() ?? "");
+                vehiculo.Dominio = sr.ReadLine() ?? "";
+                vehiculo.Marca = sr.ReadLine() ?? "";
+                vehiculo.Año = int.Parse(sr.ReadLine() ?? "");
+                vehiculo.IdTitular = int.Parse(sr.ReadLine() ?? "");
+                resultado.Add(vehiculo);
+            }
+        }
+        catch (FileNotFoundException)
+        {
+            return resultado;
         }
         return resultado;
     }
 
-    public List<Vehiculo> ListarVehiculosPorTitular(int idT){
+    public List<Vehiculo> ListarVehiculosPorTitular(int idT)
+    {
         var resultado = new List<Vehiculo>();
         var lista = ListarVehiculos();
-         foreach (Vehiculo vehiculo in lista)
+        foreach (Vehiculo vehiculo in lista)
         {
-            if (vehiculo.IdTitular == idT){
+            if (vehiculo.IdTitular == idT)
+            {
                 resultado.Add(vehiculo);
             }
         }

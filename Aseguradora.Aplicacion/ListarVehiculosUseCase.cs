@@ -7,8 +7,8 @@ public class ListarVehiculosUseCase
     {
         this._repo = repo;
     }
-    public void Ejecutar()
+    public List<Vehiculo> Ejecutar()
     {
-        _repo.ListarVehiculos();
+        return _repo.ListarVehiculos();
     }    
 }

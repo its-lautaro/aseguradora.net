@@ -22,6 +22,7 @@ public class EliminarVehiculoUseCase
                 break;
             }
         }
-        _repoP.EliminarPoliza(idP);
+        //chequeo que tenga poliza
+        if(idP!=-1)  _repoP.EliminarPoliza(idP);
     }    
 }

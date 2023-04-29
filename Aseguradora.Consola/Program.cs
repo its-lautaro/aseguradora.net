@@ -30,28 +30,93 @@ PersistirTitular(titular);
 Console.WriteLine($"Id del titular una vez persistido: {titular.Id}");
 
 //agregamos unos titulares más
-Titular titular2 = new Titular(123, "Lopez", "Maria", 221654132, "44 1413", "maria@hotmail.com");
-Titular titular3 = new Titular(456, "Sanchez", "Tomas", 221654132, "44 1413", "tomas@hotmail.com");
-Titular titular4 = new Titular(789, "Martinez", "Juana", 221654132, "44 1413", "juana@hotmail.com");
-PersistirTitular(titular2);
-PersistirTitular(titular3);
-PersistirTitular(titular4);
+titular = new Titular(123, "Lopez", "Maria", 221654132, "44 1413", "maria@hotmail.com");
+PersistirTitular(titular);
+titular = new Titular(456, "Sanchez", "Tomas", 221654132, "44 1413", "tomas@hotmail.com");
+PersistirTitular(titular);
+titular = new Titular(789, "Martinez", "Juana", 221654132, "44 1413", "juana@hotmail.com");
+PersistirTitular(titular);
 
 //listamos los titulares utilizando un método local
 ListarTitulares();
-//no debe ser posible agregar un titular con igual DNI que uno existente
-Console.WriteLine("Intentando agregar un titular con DNI 20654987");
-Titular titular5 = new Titular(33123456, "García", "Juan", 221654132, "44 1413", "meme@hotmail.com");
-PersistirTitular(titular5); //este titular no pudo persistirse
 
-// //Entonces vamos a modificar el titular existente
-// Console.WriteLine("Modificando el titular con DNI 33123456");
-// modificarTitular.Ejecutar(titular);
-// ListarTitulares();
-// //Eliminando un titular
-// Console.WriteLine("Eliminando al titular con id 1");
-// eliminarTitular.Ejecutar(1);
-// ListarTitulares();
+//no debe ser posible agregar un titular con igual DNI que uno existente
+Console.WriteLine("Intentando agregar un titular con DNI 123");
+titular = new Titular(123, "Gomez", "Joaquin", 221654132, "44 1413", "joaquin@hotmail.com");
+PersistirTitular(titular); //este titular no pudo persistirse
+
+//Entonces vamos a modificar el titular existente
+Console.WriteLine("Modificando el titular con DNI 123");
+modificarTitular.Ejecutar(titular);
+ListarTitulares();
+
+//Eliminando el titular con id 2
+Console.WriteLine("Eliminando al titular con dni 456");
+eliminarTitular.Ejecutar(456);
+ListarTitulares();
+Console.WriteLine("--------------------------------------------------------------------");
+//instanciamos un vehiculo
+Vehiculo vehiculo = new Vehiculo("AAA 405 SN", "Toyota", 2016, 1);
+Console.WriteLine($"Id del vehiculo recién instanciado: {vehiculo.Id}");
+//agregamos el vehiculo utilizando un método local
+PersistirVehiculo(vehiculo);
+//el id que corresponde al vehiculo es establecido por el repositorio
+Console.WriteLine($"Id del vehiculo una vez persistido: {vehiculo.Id}");
+
+//agregamos mas vehículos
+vehiculo = new Vehiculo("GFZ 463", "Ferrari", 2009, 1);
+PersistirVehiculo(vehiculo);
+vehiculo = new Vehiculo("FUM 420", "Ford", 2010, 3);
+PersistirVehiculo(vehiculo);
+Vehiculo UltimoVehiculo = new Vehiculo("FAA 542", "Volkswagen", 2003, 4);
+PersistirVehiculo(UltimoVehiculo);
+
+//listamos los vehiculos utilizando un método local
+ListarVehiculos();
+
+//Vamos a modificar un vehiculo existente
+Console.WriteLine("Modificando el vehiculo con id 4");
+UltimoVehiculo.Marca="Renault";
+modificarVehiculo.Ejecutar(UltimoVehiculo);
+ListarVehiculos();
+
+//Eliminando el vehiculo con id 2
+Console.WriteLine("Eliminando al vehiculo con id 2");
+eliminarVehiculo.Ejecutar(2);
+ListarVehiculos();
+Console.WriteLine("--------------------------------------------------------------------");
+//instanciamos una poliza 
+Poliza poliza = new Poliza(1,18_000,1_900_000,Poliza.TipoCobertura.ResponsabilidadCivil,DateTime.Today,DateTime.Today.AddYears(1));
+Console.WriteLine($"Id de la poliza recién instanciada: {poliza.Id}");
+//agregamos a la poliza utilizando un método local
+PersistirPoliza(poliza);
+//el id que corresponde a la poliza es establecido por el repositorio
+Console.WriteLine($"Id de la poliza una vez persistida: {poliza.Id}");
+
+//agregamos mas polizas
+poliza = new Poliza(3,18_000,1_900_000,Poliza.TipoCobertura.TodoRiesgo,DateTime.Today,DateTime.Today.AddYears(1));
+PersistirPoliza(poliza);
+poliza = new Poliza(4,18_000,1_900_000,Poliza.TipoCobertura.TodoRiesgo,DateTime.Today,DateTime.Today.AddYears(1));
+PersistirPoliza(poliza);
+Poliza UltimaPoliza = new Poliza(5,18_000,1_900_000,Poliza.TipoCobertura.ResponsabilidadCivil,DateTime.Today,DateTime.Today.AddYears(1));
+PersistirPoliza(UltimaPoliza);
+
+//listamos las polizas utilizando un método local
+ListarPolizas();
+
+//Vamos a modificar una poliza existente
+Console.WriteLine("Modificando la poliza con id 4");
+UltimaPoliza.Fecha_fin=DateTime.Today.AddYears(4);
+modificarPoliza.Ejecutar(UltimaPoliza);
+ListarPolizas();
+
+//Eliminando la poliza con id 1
+Console.WriteLine("Eliminando la poliza con id 1");
+eliminarPoliza.Ejecutar(1);
+ListarPolizas();
+
+//Listamos los titulares con sus vehiculosPersistirVehiculo(vehiculo); //este titular no pudo persistirse
+listarTitularesConSusVehiculos.Ejecutar();
 
 //métodos locales
 void PersistirTitular(Titular t)
@@ -67,10 +132,52 @@ void PersistirTitular(Titular t)
 }
 void ListarTitulares()
 {
-    Console.WriteLine("Listando todos los titulares de vehículos");
+    Console.WriteLine("Listando todos los titulares");
     List<Titular> lista = listarTitulares.Ejecutar();
     foreach (Titular t in lista)
     {
         Console.WriteLine(t);
+    }
+}
+
+void PersistirVehiculo(Vehiculo v)
+{
+    try
+    {
+        agregarVehiculo.Ejecutar(v);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    }
+}
+void ListarVehiculos()
+{
+    Console.WriteLine("Listando todos los vehículos");
+    List<Vehiculo> lista = listarVehiculos.Ejecutar();
+    foreach (Vehiculo v in lista)
+    {
+        Console.WriteLine(v);
+    }
+}
+
+void PersistirPoliza(Poliza p)
+{
+    try
+    {
+        agregarPoliza.Ejecutar(p);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    }
+}
+void ListarPolizas()
+{
+    Console.WriteLine("Listando todas las polizas");
+    List<Poliza> lista = listarPolizas.Ejecutar();
+    foreach (Poliza p in lista)
+    {
+        Console.WriteLine(p);
     }
 }

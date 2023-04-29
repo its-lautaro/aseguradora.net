@@ -43,6 +43,8 @@ public class RepositorioPolizaTXT : IRepositorioPoliza
         }
         else
         {
+            poliza.Id= polizas[pos_valid].Id;
+            polizas.RemoveAt(pos_valid);
             polizas.Insert(pos_valid, poliza);
 
         }

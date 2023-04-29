@@ -14,14 +14,7 @@ public class RepositorioTitularTXT : IRepositorioTitular
 
     public void AgregarTitular(Titular t)
     {
-        try
-        {
-            unico(t);
-        }
-        catch (Exception e)
-        {
-            throw e;
-        }
+        if(!unico(t)) throw new Exception("El dni ya existe");
 
         using var sw = new StreamWriter(_nombreArch, true);
         t.Id = s_IdT;
@@ -36,14 +29,18 @@ public class RepositorioTitularTXT : IRepositorioTitular
         sw.Close();
     }
 
-    private void unico(Titular t)
+    private bool unico(Titular t)
     {
         List<Titular> list = ListarTitulares();
         int dni = t.DNI;
         foreach (Titular i in list)
         {
-            if (i.DNI == dni) throw new Exception($"El titular con DNI {dni} ya existe");
+            if (i.DNI == dni)
+            {
+                return false;
+            }
         }
+        return true;
     }
     public Titular EliminarTitular(int dni)
     {
@@ -51,12 +48,13 @@ public class RepositorioTitularTXT : IRepositorioTitular
         Titular eliminado;
         //busqueda por dni
         int index = GetIdTitular(dni, lista);
-        //manejar excepciones
+        //manejar excepcionessr.Close();
         if (index == -1)
         {
             throw new Exception("No se encontro el titular con ese dni");
         }
-        else{
+        else
+        {
             eliminado = lista[index];
             lista.RemoveAt(index);
         }
@@ -67,19 +65,22 @@ public class RepositorioTitularTXT : IRepositorioTitular
     {
         List<Titular> lista = ListarTitulares();
         //busqueda por dni
-        int index = GetIdTitular(t.DNI,lista);
+        int index = GetIdTitular(t.DNI, lista);
         //manejar
         if (index == -1)
         {
             throw new Exception("No se encontro el titular con ese dni");
         }
-        else{
-            lista.Insert(index,t);
+        else
+        {
+            t.Id= lista[index].Id;
+            lista.RemoveAt(index);
+            lista.Insert(index, t);
         }
 
         GuardarLista(lista);
     }
-    private int GetIdTitular(int dni,List<Titular> lista)
+    private int GetIdTitular(int dni, List<Titular> lista)
     {
         int index = -1;
 
@@ -100,6 +101,7 @@ public class RepositorioTitularTXT : IRepositorioTitular
         foreach (Titular t in l)
         {
             sw.WriteLine(t.Id);
+            sw.WriteLine(t.DNI);
             sw.WriteLine(t.Apellido);
             sw.WriteLine(t.Nombre);
             sw.WriteLine(t.Telefono);
@@ -111,28 +113,28 @@ public class RepositorioTitularTXT : IRepositorioTitular
     public List<Titular> ListarTitulares()
     {
         List<Titular> _lista = new List<Titular>();
-        StreamReader sr;
-        try{
-            sr = new StreamReader(_nombreArch);
-        }catch(FileNotFoundException){
+        try
+        {
+            using StreamReader sr = new StreamReader(_nombreArch);
+            while (!sr.EndOfStream)
+            {
+                int id = int.Parse(sr.ReadLine() ?? "");
+                int dni = int.Parse(sr.ReadLine() ?? "");
+                string apellido = sr.ReadLine() ?? "";
+                string nombre = sr.ReadLine() ?? "";
+                int tel = int.Parse(sr.ReadLine() ?? "");
+                string dir = sr.ReadLine() ?? "";
+                string mail = sr.ReadLine() ?? "";
+
+                Titular t = new Titular(dni, apellido, nombre, tel, dir, mail);
+                t.Id = id;
+                _lista.Add(t);
+            }
+        }
+        catch (FileNotFoundException)
+        {
             return _lista;
         }
-        
-
-        while (!sr.EndOfStream)
-        {
-            int id = int.Parse(sr.ReadLine() ?? "");
-            int dni = int.Parse(sr.ReadLine() ?? "");
-            string apellido = sr.ReadLine() ?? "";
-            string nombre = sr.ReadLine() ?? "";
-            int tel = int.Parse(sr.ReadLine() ?? "");
-            string dir = sr.ReadLine() ?? "";
-            string mail = sr.ReadLine() ?? "";
-
-            Titular t = new Titular(dni, apellido, nombre, tel, dir, mail);
-            t.Id = id;
-        }
-
         return _lista;
     }
 }
