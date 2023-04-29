@@ -14,12 +14,15 @@ public class RepositorioTitularTXT : IRepositorioTitular
 
     public void AgregarTitular(Titular t)
     {
-        try{
+        try
+        {
             unico(t);
-        }catch(Exception e){
+        }
+        catch (Exception e)
+        {
             throw e;
         }
-        
+
         using var sw = new StreamWriter(_nombreArch, true);
         t.Id = s_IdT;
         s_IdT++;
@@ -33,10 +36,12 @@ public class RepositorioTitularTXT : IRepositorioTitular
         sw.Close();
     }
 
-    private void unico(Titular t){
+    private void unico(Titular t)
+    {
         List<Titular> list = ListarTitulares();
         int dni = t.DNI;
-        foreach (Titular i in list){
+        foreach (Titular i in list)
+        {
             if (i.DNI == dni) throw new Exception($"El titular con DNI {dni} ya existe");
         }
     }
@@ -44,7 +49,36 @@ public class RepositorioTitularTXT : IRepositorioTitular
     {
         List<Titular> lista = ListarTitulares();
         //busqueda por dni
+        int index = buscar(dni, lista);
+        //manejar excepciones
+        if (index == -1)
+        {
+            throw new Exception("No se encontro el titular con ese dni");
+        }
+        else lista.RemoveAt(index);
+
+        GuardarLista(lista);
+    }
+    public void ModificarTitular(Titular t)
+    {
+        List<Titular> lista = ListarTitulares();
+        //busqueda por dni
+        int index = buscar(t.DNI, lista);
+        //manejar
+        if (index == -1)
+        {
+            throw new Exception("No se encontro el titular con ese dni");
+        }
+        else{
+            lista.Insert(index,t);
+        }
+
+        GuardarLista(lista);
+    }
+    private int buscar(int dni, List<Titular> lista)
+    {
         int index = -1;
+
         for (int i = 0; i < lista.Count; i++)
         {
             if (lista[i].DNI == dni)
@@ -53,23 +87,14 @@ public class RepositorioTitularTXT : IRepositorioTitular
                 break;
             }
         }
-        //manejar excepciones
-        if (index == -1)
-        {
-            throw new Exception("No se encontro el titular con ese dni");
-        }
-        else lista.RemoveAt(index);
-        
-        GuardarLista(lista);
-    }
-    public void ModificarTitular(Titular t)
-    {
-        //to do
+        return index;
     }
 
-    private void GuardarLista(List<Titular> l){
+    private void GuardarLista(List<Titular> l)
+    {
         using var sw = new StreamWriter(_nombreArch, false);
-        foreach (Titular t in l){
+        foreach (Titular t in l)
+        {
             sw.WriteLine(t.Id);
             sw.WriteLine(t.Apellido);
             sw.WriteLine(t.Nombre);
@@ -84,7 +109,8 @@ public class RepositorioTitularTXT : IRepositorioTitular
         List<Titular> _lista = new List<Titular>();
         using var sr = new StreamReader(_nombreArch);
 
-        while(!sr.EndOfStream){
+        while (!sr.EndOfStream)
+        {
             int id = int.Parse(sr.ReadLine() ?? "");
             int dni = int.Parse(sr.ReadLine() ?? "");
             string apellido = sr.ReadLine() ?? "";
@@ -92,15 +118,16 @@ public class RepositorioTitularTXT : IRepositorioTitular
             int tel = int.Parse(sr.ReadLine() ?? "");
             string dir = sr.ReadLine() ?? "";
             string mail = sr.ReadLine() ?? "";
-            
-            Titular t = new Titular(dni,apellido,nombre,tel,dir,mail);
-            t.Id=id;
+
+            Titular t = new Titular(dni, apellido, nombre, tel, dir, mail);
+            t.Id = id;
         }
-        
+
         return _lista;
     }
 
-    public List<Vehiculo> ListarTitularesConSusVehiculos(){
+    public List<Vehiculo> ListarTitularesConSusVehiculos()
+    {
         //revisar lo que devuelve
         List<Vehiculo> vehiculos = new List<Vehiculo>();
         return vehiculos;
