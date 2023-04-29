@@ -45,25 +45,29 @@ public class RepositorioTitularTXT : IRepositorioTitular
             if (i.DNI == dni) throw new Exception($"El titular con DNI {dni} ya existe");
         }
     }
-    public void EliminarTitular(int dni)
+    public Titular EliminarTitular(int dni)
     {
         List<Titular> lista = ListarTitulares();
+        Titular eliminado;
         //busqueda por dni
-        int index = buscar(dni, lista);
+        int index = GetIdTitular(dni, lista);
         //manejar excepciones
         if (index == -1)
         {
             throw new Exception("No se encontro el titular con ese dni");
         }
-        else lista.RemoveAt(index);
-
+        else{
+            eliminado = lista[index];
+            lista.RemoveAt(index);
+        }
         GuardarLista(lista);
+        return eliminado;
     }
     public void ModificarTitular(Titular t)
     {
         List<Titular> lista = ListarTitulares();
         //busqueda por dni
-        int index = buscar(t.DNI, lista);
+        int index = GetIdTitular(t.DNI,lista);
         //manejar
         if (index == -1)
         {
@@ -75,7 +79,7 @@ public class RepositorioTitularTXT : IRepositorioTitular
 
         GuardarLista(lista);
     }
-    private int buscar(int dni, List<Titular> lista)
+    private int GetIdTitular(int dni,List<Titular> lista)
     {
         int index = -1;
 
