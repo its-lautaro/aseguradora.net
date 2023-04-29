@@ -5,4 +5,5 @@ public interface IRepositorioVehiculo {
     void ModificarVehiculo(Vehiculo vehiculo);
     void EliminarVehiculo(int id);
     List<Vehiculo> ListarVehiculos();
+    List<Vehiculo> ListarVehiculosPorTitular(int idT);
 }

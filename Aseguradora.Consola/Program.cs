@@ -2,11 +2,25 @@
 using Aseguradora.Repositorios;
 
 //creamos los casos de uso inyectando dependencias
+RepositorioPolizaTXT repoPoliza = new RepositorioPolizaTXT();
+AgregarPolizaUseCase agregarPoliza = new AgregarPolizaUseCase(repoPoliza);
+ModificarPolizaUseCase modificarPoliza = new ModificarPolizaUseCase(repoPoliza);
+EliminarPolizaUseCase eliminarPoliza = new EliminarPolizaUseCase(repoPoliza);
+ListarPolizasUseCase listarPolizas = new ListarPolizasUseCase(repoPoliza);
+
+RepositorioVehiculoTXT repoVehiculo = new RepositorioVehiculoTXT();
+AgregarVehiculoUseCase agregarVehiculo = new AgregarVehiculoUseCase(repoVehiculo);
+ModificarVehiculoUseCase modificarVehiculo = new ModificarVehiculoUseCase(repoVehiculo);
+EliminarVehiculoUseCase eliminarVehiculo = new EliminarVehiculoUseCase(repoVehiculo, repoPoliza);
+ListarVehiculosUseCase listarVehiculos = new ListarVehiculosUseCase(repoVehiculo);
+
 RepositorioTitularTXT repoTitular = new RepositorioTitularTXT();
 AgregarTitularUseCase agregarTitular = new AgregarTitularUseCase(repoTitular);
-ListarTitularesUseCase listarTitulares = new ListarTitularesUseCase(repoTitular);
 ModificarTitularUseCase modificarTitular = new ModificarTitularUseCase(repoTitular);
-//EliminarTitularUseCase eliminarTitular = new EliminarTitularUseCase(repoTitular);
+// EliminarTitularUseCase eliminarTitular = new EliminarTitularUseCase(repoTitular);
+ListarTitularesUseCase listarTitulares = new ListarTitularesUseCase(repoTitular);
+ListarTitularesConSusVehiculosUseCase listarTitularesConSusVehiculos = new ListarTitularesConSusVehiculosUseCase(repoTitular, repoVehiculo);
+
 //Instanciamos un titular
 Titular titular = new Titular(33123456, "García", "Juan", 221654132, "44 1413", "meme@hotmail.com");
 

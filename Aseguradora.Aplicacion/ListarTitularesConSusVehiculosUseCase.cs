@@ -2,13 +2,22 @@ namespace Aseguradora.Aplicacion;
 
 public class ListarTitularesConSusVehiculosUseCase
 {
-    private readonly IRepositorioTitular _repo;
-    public ListarTitularesConSusVehiculosUseCase(IRepositorioTitular repo)
+    private readonly IRepositorioTitular _repoT;
+    private readonly IRepositorioVehiculo _repoV;
+
+    public ListarTitularesConSusVehiculosUseCase(IRepositorioTitular repoT, IRepositorioVehiculo repoV)
     {
-        this._repo = repo;
+        this._repoT = repoT;
+        this._repoV = repoV;
     }
-    public void Ejecutar()
+    public List<Titular> Ejecutar()
     {
-        _repo.ListarTitularesConSusVehiculos();
-    }    
+        List<Titular> titulares = _repoT.ListarTitulares();
+        foreach (Titular titular in titulares)
+        {
+            List<Vehiculo> vehiculosTitular = _repoV.ListarVehiculosPorTitular(titular.Id);
+            titular.Vehiculos=vehiculosTitular;
+        }
+        return titulares;
+    }
 }

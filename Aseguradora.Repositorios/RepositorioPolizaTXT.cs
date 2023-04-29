@@ -26,8 +26,27 @@ public class RepositorioPolizaTXT : IRepositorioPoliza
         sw.Close();
     }
     public void ModificarPoliza(Poliza poliza) { 
-        
+        int myid=poliza.Id;
+        List<Poliza> polizas = ListarPolizas();
+        int pos_valid = -1;
+        for (int i = polizas.Count - 1; i >= 0; i--)
+        {
+            if (polizas[i].Id == myid)
+            {
+                pos_valid = i;
+                break;
+            }
+        }
+        if (pos_valid == -1)
+        {
+            throw new Exception("No se encontro el poliza con ese id");
+        }
+        else
+        {
+            polizas.Insert(pos_valid, poliza);
 
+        }
+        GuardarLista(polizas);
     }
     public void EliminarPoliza(int id)
     {
