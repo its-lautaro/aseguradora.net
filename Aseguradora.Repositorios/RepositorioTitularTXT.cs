@@ -100,4 +100,10 @@ public class RepositorioTitularTXT : IRepositorioTitular
         return _lista;
     }
 
+    public List<Vehiculo> ListarTitularesConSusVehiculos(){
+        //revisar lo que devuelve
+        List<Vehiculo> vehiculos = new List<Vehiculo>();
+        return vehiculos;
+    }
+
 }
