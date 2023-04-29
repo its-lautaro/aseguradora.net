@@ -29,4 +29,8 @@ public class Poliza
         Fecha_inicio=fecha_inicio;
         Fecha_fin=fecha_fin;
     }
+    public override string ToString()
+    {
+        return $"{Id}: Vehiculo: {IdVehiculo}, Valor: ARS {ValorAsegurado}, Franquicia: ARS {Franquicia}, Tipo de cobertura: {Cobertura},  Vigencia desde {Fecha_inicio} hasta {Fecha_fin}";
+    }
 }

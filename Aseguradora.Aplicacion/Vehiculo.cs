@@ -19,4 +19,9 @@ public class Vehiculo
         Año=año;
         IdTitular=idtitular;
     }
+
+    public override string ToString()
+    {
+        return $"{Id}: Titular: {IdTitular}, Dominio: {Dominio}, Marca: {Marca}, Año: {Año}";
+    }
 }

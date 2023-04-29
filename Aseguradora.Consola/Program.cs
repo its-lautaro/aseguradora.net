@@ -17,23 +17,22 @@ ListarVehiculosUseCase listarVehiculos = new ListarVehiculosUseCase(repoVehiculo
 RepositorioTitularTXT repoTitular = new RepositorioTitularTXT();
 AgregarTitularUseCase agregarTitular = new AgregarTitularUseCase(repoTitular);
 ModificarTitularUseCase modificarTitular = new ModificarTitularUseCase(repoTitular);
-// EliminarTitularUseCase eliminarTitular = new EliminarTitularUseCase(repoTitular);
+EliminarTitularUseCase eliminarTitular = new EliminarTitularUseCase(repoTitular, repoVehiculo);
 ListarTitularesUseCase listarTitulares = new ListarTitularesUseCase(repoTitular);
 ListarTitularesConSusVehiculosUseCase listarTitularesConSusVehiculos = new ListarTitularesConSusVehiculosUseCase(repoTitular, repoVehiculo);
 
 //Instanciamos un titular
-Titular titular = new Titular(33123456, "García", "Juan", 221654132, "44 1413", "meme@hotmail.com");
-
+Titular titular = new Titular(33123456, "García", "Juan", 221654132, "44 1413", "juan@hotmail.com");
 Console.WriteLine($"Id del titular recién instanciado: {titular.Id}");
-
 //agregamos el titular utilizando un método local
 PersistirTitular(titular);
 //el id que corresponde al titular es establecido por el repositorio
 Console.WriteLine($"Id del titular una vez persistido: {titular.Id}");
+
 //agregamos unos titulares más
-Titular titular2 = new Titular(333456456, "García", "Juan", 221654132, "44 1413", "meme@hotmail.com");
-Titular titular3 = new Titular(33189056, "García", "Juan", 221654132, "44 1413", "meme@hotmail.com");
-Titular titular4 = new Titular(33100056, "García", "Juan", 221654132, "44 1413", "meme@hotmail.com");
+Titular titular2 = new Titular(123, "Lopez", "Maria", 221654132, "44 1413", "maria@hotmail.com");
+Titular titular3 = new Titular(456, "Sanchez", "Tomas", 221654132, "44 1413", "tomas@hotmail.com");
+Titular titular4 = new Titular(789, "Martinez", "Juana", 221654132, "44 1413", "juana@hotmail.com");
 PersistirTitular(titular2);
 PersistirTitular(titular3);
 PersistirTitular(titular4);
