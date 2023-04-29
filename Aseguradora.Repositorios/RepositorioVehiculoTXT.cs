@@ -85,7 +85,14 @@ public class RepositorioVehiculoTXT : IRepositorioVehiculo
     public List<Vehiculo> ListarVehiculos()
     {
         var resultado = new List<Vehiculo>();
-        using var sr = new StreamReader(_nombreArch);
+        StreamReader sr;
+
+        try{
+            sr = new StreamReader(_nombreArch);
+        }catch(FileNotFoundException){
+            return resultado;
+        }
+        
         while (!sr.EndOfStream)
         {
             var vehiculo = new Vehiculo();

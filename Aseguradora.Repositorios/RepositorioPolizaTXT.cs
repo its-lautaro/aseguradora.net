@@ -89,7 +89,12 @@ public class RepositorioPolizaTXT : IRepositorioPoliza
     public List<Poliza> ListarPolizas()
     {
         var resultado = new List<Poliza>();
-        using var sr = new StreamReader(_nombreArch);
+        StreamReader sr;
+        try{
+            sr = new StreamReader(_nombreArch);
+        }catch(FileNotFoundException){
+            return resultado;
+        }
         while (!sr.EndOfStream)
         {
             var poliza = new Poliza();
