@@ -9,7 +9,7 @@ public class RepositorioTitularTXT : IRepositorioTitular
     {
         //inicializar id
         List<Titular> lista = ListarTitulares();
-        s_IdT = (lista.Count == 0) ? 0 : (lista.Last().Id + 1);
+        s_IdT = (lista.Count == 0) ? 1 : (lista.Last().Id + 1);
     }
 
     public void AgregarTitular(Titular t)

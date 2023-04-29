@@ -9,7 +9,7 @@ public class RepositorioPolizaTXT : IRepositorioPoliza
     {
         //inicializar id
         List<Poliza> lista = ListarPolizas();
-        s_id = (lista.Count == 0) ? 0 : (lista.Last().Id + 1);
+        s_id = (lista.Count == 0) ? 1 : (lista.Last().Id + 1);
     }
     public void AgregarPoliza(Poliza poliza)
     {
