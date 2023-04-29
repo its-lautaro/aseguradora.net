@@ -111,7 +111,13 @@ public class RepositorioTitularTXT : IRepositorioTitular
     public List<Titular> ListarTitulares()
     {
         List<Titular> _lista = new List<Titular>();
-        using var sr = new StreamReader(_nombreArch);
+        StreamReader sr;
+        try{
+            sr = new StreamReader(_nombreArch);
+        }catch(FileNotFoundException){
+            return _lista;
+        }
+        
 
         while (!sr.EndOfStream)
         {
