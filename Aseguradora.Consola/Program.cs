@@ -45,9 +45,11 @@ Console.WriteLine("Intentando agregar un titular con DNI 123");
 titular = new Titular(123, "Gomez", "Joaquin", 221654132, "44 1413", "joaquin@hotmail.com");
 PersistirTitular(titular); //este titular no pudo persistirse
 
-//Entonces vamos a modificar el titular existente
-Console.WriteLine("Modificando el titular con DNI 123");
-modificarTitular.Ejecutar(titular);
+//Intentamos modificar un titular que no existe
+Titular noexisto = new Titular(42195854,"La Vecchia","Lautaro",221221221,"42 1413","lautaro@tempmail.com");
+ModificarTitular(noexisto); //no me deja
+//ahora modificamos un titular existente
+ModificarTitular(titular);
 ListarTitulares();
 
 //Eliminando el titular con id 3 dni 456
@@ -76,9 +78,8 @@ PersistirVehiculo(UltimoVehiculo);
 ListarVehiculos();
 
 //Vamos a modificar un vehiculo existente
-Console.WriteLine("Modificando el vehiculo con id 4");
 UltimoVehiculo.Marca = "Renault";
-modificarVehiculo.Ejecutar(UltimoVehiculo);
+ModificarVehiculo(UltimoVehiculo);
 ListarVehiculos();
 
 //Eliminando el vehiculo con id 2
@@ -103,9 +104,8 @@ PersistirPoliza(UltimaPoliza);
 ListarPolizas();
 
 //Vamos a modificar una poliza existente
-Console.WriteLine("Modificando el vencimiento de la poliza con id 3");
 UltimaPoliza.Fecha_fin = DateTime.Today.AddYears(4);
-modificarPoliza.Ejecutar(UltimaPoliza);
+ModificarPoliza(UltimaPoliza);
 ListarPolizas();
 
 //Eliminando la poliza con id 1
@@ -149,6 +149,15 @@ void EliminarTitular(int dni)
     }
 }
 
+void ModificarTitular(Titular t){
+    Console.WriteLine($"Modificando el titular con DNI {t.DNI}");
+    try{
+        modificarTitular.Ejecutar(t);
+    }catch (Exception e){
+        Console.WriteLine(e.Message);
+    }
+}
+
 void PersistirVehiculo(Vehiculo v)
 {
     try
@@ -183,6 +192,15 @@ void EliminarVehiculo(int id)
     }
 }
 
+void ModificarVehiculo(Vehiculo v){
+    Console.WriteLine($"Modificando el vehiculo con id {v.Id}");
+    try{
+        modificarVehiculo.Ejecutar(v);
+    }catch (Exception e){
+        Console.WriteLine(e.Message);
+    }
+}
+
 void PersistirPoliza(Poliza p)
 {
     try
@@ -212,6 +230,15 @@ void EliminarPoliza(int id)
     }
     catch (Exception e)
     {
+        Console.WriteLine(e.Message);
+    }
+}
+
+void ModificarPoliza(Poliza p){
+    Console.WriteLine($"Modificando la poliza con id {p.Id}");
+    try{
+        modificarPoliza.Ejecutar(p);
+    }catch (Exception e){
         Console.WriteLine(e.Message);
     }
 }
