@@ -103,7 +103,7 @@ PersistirPoliza(UltimaPoliza);
 ListarPolizas();
 
 //Vamos a modificar una poliza existente
-Console.WriteLine("Modificando el vencimiento de la poliza con id 4");
+Console.WriteLine("Modificando el vencimiento de la poliza con id 3");
 UltimaPoliza.Fecha_fin = DateTime.Today.AddYears(4);
 modificarPoliza.Ejecutar(UltimaPoliza);
 ListarPolizas();
