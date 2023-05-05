@@ -138,7 +138,7 @@ void ListarTitulares()
 }
 void EliminarTitular(int dni)
 {
-    Console.WriteLine($"Eliminando al vehiculo con dni {dni}");
+    Console.WriteLine($"Eliminando el titular con dni {dni}");
     try
     {
         eliminarTitular.Ejecutar(dni);
@@ -172,7 +172,7 @@ void ListarVehiculos()
 
 void EliminarVehiculo(int id)
 {
-    Console.WriteLine($"Eliminando al vehiculo con id {id}");
+    Console.WriteLine($"Eliminando el vehiculo con id {id}");
     try
     {
         eliminarVehiculo.Ejecutar(id);
