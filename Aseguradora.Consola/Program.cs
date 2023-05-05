@@ -96,16 +96,14 @@ Console.WriteLine($"Id de la poliza una vez persistida: {poliza.Id}");
 //agregamos mas polizas
 poliza = new Poliza(3,18_000,1_900_000,Poliza.TipoCobertura.TodoRiesgo,DateTime.Today,DateTime.Today.AddYears(1));
 PersistirPoliza(poliza);
-poliza = new Poliza(4,18_000,1_900_000,Poliza.TipoCobertura.TodoRiesgo,DateTime.Today,DateTime.Today.AddYears(1));
-PersistirPoliza(poliza);
-Poliza UltimaPoliza = new Poliza(5,18_000,1_900_000,Poliza.TipoCobertura.ResponsabilidadCivil,DateTime.Today,DateTime.Today.AddYears(1));
+Poliza UltimaPoliza = new Poliza(4,18_000,1_900_000,Poliza.TipoCobertura.ResponsabilidadCivil,DateTime.Today,DateTime.Today.AddYears(1));
 PersistirPoliza(UltimaPoliza);
 
 //listamos las polizas utilizando un método local
 ListarPolizas();
 
 //Vamos a modificar una poliza existente
-Console.WriteLine("Modificando la poliza con id 4");
+Console.WriteLine("Modificando el vencimiento de la poliza con id 4");
 UltimaPoliza.Fecha_fin=DateTime.Today.AddYears(4);
 modificarPoliza.Ejecutar(UltimaPoliza);
 ListarPolizas();
@@ -115,7 +113,7 @@ Console.WriteLine("Eliminando la poliza con id 1");
 eliminarPoliza.Ejecutar(1);
 ListarPolizas();
 
-//Listamos los titulares con sus vehiculosPersistirVehiculo(vehiculo); //este titular no pudo persistirse
+//Listamos los titulares con sus vehiculosPersistirVehiculo(vehiculo);
 listarTitularesConSusVehiculos.Ejecutar();
 
 //métodos locales
