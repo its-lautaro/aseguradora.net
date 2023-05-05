@@ -50,7 +50,7 @@ Console.WriteLine("Modificando el titular con DNI 123");
 modificarTitular.Ejecutar(titular);
 ListarTitulares();
 
-//Eliminando el titular con id 2 dni 456
+//Eliminando el titular con id 3 dni 456
 EliminarTitular(456);
 ListarTitulares();
 
@@ -67,7 +67,7 @@ Console.WriteLine($"Id del vehiculo una vez persistido: {vehiculo.Id}");
 //agregamos mas vehículos
 vehiculo = new Vehiculo("GFZ 463", "Ferrari", 2009, 1);
 PersistirVehiculo(vehiculo);
-vehiculo = new Vehiculo("FUM 420", "Ford", 2010, 3);
+vehiculo = new Vehiculo("FUM 420", "Ford", 2010, 2);
 PersistirVehiculo(vehiculo);
 Vehiculo UltimoVehiculo = new Vehiculo("FAA 542", "Volkswagen", 2003, 4);
 PersistirVehiculo(UltimoVehiculo);
