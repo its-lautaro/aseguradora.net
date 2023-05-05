@@ -64,7 +64,7 @@ public class RepositorioPolizaTXT : IRepositorioPoliza
         }
         if (pos_valid == -1)
         {
-            throw new Exception("No se encontro el poliza con ese id");
+            throw new Exception("No se encontro la poliza con ese id");
         }
         else
         {
