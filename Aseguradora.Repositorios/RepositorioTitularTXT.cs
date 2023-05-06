@@ -51,7 +51,7 @@ public class RepositorioTitularTXT : IRepositorioTitular
         //manejar excepcionessr.Close();
         if (index == -1)
         {
-            throw new Exception("No se encontro el titular con ese dni");
+            throw new Exception($"No se encontro el titular con dni {dni}");
         }
         else
         {
@@ -69,7 +69,7 @@ public class RepositorioTitularTXT : IRepositorioTitular
         //manejar
         if (index == -1)
         {
-            throw new Exception("No se encontro el titular con ese dni");
+            throw new Exception($"No se encontro el titular con dni {t.DNI}");
         }
         else
         {

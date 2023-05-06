@@ -46,7 +46,7 @@ titular = new Titular(123, "Gomez", "Joaquin", 221654132, "44 1413", "joaquin@ho
 PersistirTitular(titular); //este titular no pudo persistirse
 
 //Intentamos modificar un titular que no existe
-Titular noexisto = new Titular(42195854,"La Vecchia","Lautaro",221221221,"42 1413","lautaro@tempmail.com");
+Titular noexisto = new Titular(42195854, "La Vecchia", "Lautaro", 221221221, "42 1413", "lautaro@tempmail.com");
 ModificarTitular(noexisto); //no me deja
 //ahora modificamos un titular existente
 ModificarTitular(titular);
@@ -55,6 +55,8 @@ ListarTitulares();
 //Eliminando el titular con id 3 dni 456
 EliminarTitular(456);
 ListarTitulares();
+//Intentamos eliminar un titular con dni 456 de nuevo
+EliminarTitular(456); //no me deja
 
 Console.WriteLine("--------------------------------------------------------------------");
 
@@ -77,6 +79,9 @@ PersistirVehiculo(UltimoVehiculo);
 //listamos los vehiculos utilizando un método local
 ListarVehiculos();
 
+//Intentamos modificar un vehiculo que no existe
+Vehiculo noexistoV = new Vehiculo("YPS 542", "Volkswagen", 2015, 4);
+ModificarVehiculo(noexistoV); //no me deja
 //Vamos a modificar un vehiculo existente
 UltimoVehiculo.Marca = "Renault";
 ModificarVehiculo(UltimoVehiculo);
@@ -85,7 +90,11 @@ ListarVehiculos();
 //Eliminando el vehiculo con id 2
 EliminarVehiculo(2);
 ListarVehiculos();
+//Intentando eliminar un vehiculo con id 2 de nuevo
+EliminarVehiculo(2);
+
 Console.WriteLine("--------------------------------------------------------------------");
+
 //instanciamos una poliza 
 Poliza poliza = new Poliza(1, 18_000, 1_900_000, Poliza.TipoCobertura.ResponsabilidadCivil, DateTime.Today, DateTime.Today.AddYears(1));
 Console.WriteLine($"Id de la poliza recién instanciada: {poliza.Id}");
@@ -103,6 +112,9 @@ PersistirPoliza(UltimaPoliza);
 //listamos las polizas utilizando un método local
 ListarPolizas();
 
+//Intentamos modificar una poliza que no existe
+Poliza noexistoP = new Poliza(3, 25_000, 5_000_000, Poliza.TipoCobertura.TodoRiesgo, DateTime.Today, DateTime.Today.AddYears(5));
+ModificarPoliza(noexistoP);
 //Vamos a modificar una poliza existente
 UltimaPoliza.Fecha_fin = DateTime.Today.AddYears(4);
 ModificarPoliza(UltimaPoliza);
@@ -111,6 +123,10 @@ ListarPolizas();
 //Eliminando la poliza con id 1
 EliminarPoliza(1);
 ListarPolizas();
+//Intentamos eliminar una poliza con id 1 de nuevo
+EliminarPoliza(1);
+
+Console.WriteLine("--------------------------------------------------------------------");
 
 //Listamos los titulares con sus vehiculosPersistirVehiculo(vehiculo);
 ListarTitularesConSusVehiculos();
@@ -149,11 +165,15 @@ void EliminarTitular(int dni)
     }
 }
 
-void ModificarTitular(Titular t){
+void ModificarTitular(Titular t)
+{
     Console.WriteLine($"Modificando el titular con DNI {t.DNI}");
-    try{
+    try
+    {
         modificarTitular.Ejecutar(t);
-    }catch (Exception e){
+    }
+    catch (Exception e)
+    {
         Console.WriteLine(e.Message);
     }
 }
@@ -192,11 +212,15 @@ void EliminarVehiculo(int id)
     }
 }
 
-void ModificarVehiculo(Vehiculo v){
+void ModificarVehiculo(Vehiculo v)
+{
     Console.WriteLine($"Modificando el vehiculo con id {v.Id}");
-    try{
+    try
+    {
         modificarVehiculo.Ejecutar(v);
-    }catch (Exception e){
+    }
+    catch (Exception e)
+    {
         Console.WriteLine(e.Message);
     }
 }
@@ -234,11 +258,15 @@ void EliminarPoliza(int id)
     }
 }
 
-void ModificarPoliza(Poliza p){
+void ModificarPoliza(Poliza p)
+{
     Console.WriteLine($"Modificando la poliza con id {p.Id}");
-    try{
+    try
+    {
         modificarPoliza.Ejecutar(p);
-    }catch (Exception e){
+    }
+    catch (Exception e)
+    {
         Console.WriteLine(e.Message);
     }
 }
@@ -254,7 +282,7 @@ void ListarTitularesConSusVehiculos()
         {
             foreach (Vehiculo v in t.Vehiculos)
             {
-                Console.WriteLine("  * "+v);
+                Console.WriteLine("  * " + v);
             }
         }
     }
