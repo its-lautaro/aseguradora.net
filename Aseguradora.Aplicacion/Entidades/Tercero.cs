@@ -12,4 +12,9 @@ public class Tercero : Persona
         IdSiniestro = idsiniestro;
     }
 
+    public override string ToString()
+    {
+        return $"{Id}: {DNI} {Apellido}, {Nombre} {Telefono} {Aseguradora} {IdSiniestro}";
+    }
+
 }
