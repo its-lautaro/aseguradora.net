@@ -16,4 +16,8 @@ public class Siniestro{
         Direccion=direccion;
         Descripcion=descripcion;
     }
+    public override string ToString()
+    {
+        return $"{Id}: Poliza: {IdPoliza}, Fecha ingreso: {Fecha_ingreso}, Fecha incidente: {Fecha_incidente}, Direccion: {Direccion},  Descripcion: {Descripcion}";
+    }
 }
