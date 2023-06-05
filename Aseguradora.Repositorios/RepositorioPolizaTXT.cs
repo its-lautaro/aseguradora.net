@@ -1,5 +1,6 @@
 namespace Aseguradora.Repositorios;
-using Aseguradora.Aplicacion;
+using Aseguradora.Aplicacion.Interfaces;
+using Aseguradora.Aplicacion.Entidades;
 
 public class RepositorioPolizaTXT : IRepositorioPoliza
 {

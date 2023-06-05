@@ -1,5 +1,7 @@
 ﻿namespace Aseguradora.Repositorios;
-using Aseguradora.Aplicacion;
+using Aseguradora.Aplicacion.Interfaces;
+using Aseguradora.Aplicacion.Entidades;
+
 public class RepositorioTitularTXT : IRepositorioTitular
 {
     readonly string _nombreArch = "titulares.txt";

@@ -1,5 +1,5 @@
-namespace Aseguradora.Aplicacion;
-
+using Aseguradora.Aplicacion.Entidades;
+namespace Aseguradora.Aplicacion.Interfaces;
 public interface IRepositorioPoliza {
     void AgregarPoliza(Poliza poliza);
     void ModificarPoliza(Poliza poliza);

@@ -1,5 +1,6 @@
-namespace Aseguradora.Aplicacion;
-
+namespace Aseguradora.Aplicacion.UseCases;
+using Aseguradora.Aplicacion.Entidades;
+using Aseguradora.Aplicacion.Interfaces;
 public class EliminarTitularUseCase
 {
     private readonly IRepositorioVehiculo _repoV;

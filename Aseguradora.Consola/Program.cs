@@ -1,4 +1,5 @@
-﻿using Aseguradora.Aplicacion;
+﻿using Aseguradora.Aplicacion.UseCases;
+using Aseguradora.Aplicacion.Entidades;
 using Aseguradora.Repositorios;
 
 //creamos los casos de uso inyectando dependencias
