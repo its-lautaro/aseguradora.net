@@ -29,7 +29,7 @@ EliminarTerceroUseCase eliminarTercero= new EliminarTerceroUseCase(repoTercero);
 ListarTercerosUseCase listarTerceros = new ListarTercerosUseCase(repoTercero);
 
 RepositorioSiniestroTXT repoSiniestro = new RepositorioSiniestroTXT();
-AgregarSiniestroUseCase agregarSiniestro = new AgregarSiniestroUseCase(repoSiniestro);
+AgregarSiniestroUseCase agregarSiniestro = new AgregarSiniestroUseCase(repoSiniestro,repoPoliza);
 ModificarSiniestroUseCase modificarSiniestro = new ModificarSiniestroUseCase(repoSiniestro);
 EliminarSiniestroUseCase eliminarSiniestro = new EliminarSiniestroUseCase(repoTercero,repoSiniestro);
 ListarSiniestrosUseCase listarSiniestros = new ListarSiniestrosUseCase(repoSiniestro);
@@ -155,7 +155,7 @@ Console.WriteLine($"Vehiculo instanciado: id:{vehiculo.Id}");
 PersistirVehiculo(vehiculo);
 Console.WriteLine($"Vehiculo persistido: id:{vehiculo.Id}");
 //instanciamos una poliza
-Poliza poliza = new Poliza(1,100_000,150_000,Poliza.TipoCobertura.ResponsabilidadCivil,DateTime.Parse("05/06/2023"),DateTime.Parse("05/06/2023").AddYears(1));
+Poliza poliza = new Poliza(1,100_000,150_000,Poliza.TipoCobertura.ResponsabilidadCivil,DateTime.Parse("01/06/2023"),DateTime.Parse("01/06/2023").AddYears(1));
 Console.WriteLine($"Poliza instanciada: id:{poliza.Id}");
 PersistirPoliza(poliza);
 Console.WriteLine($"Poliza persistida: id:{poliza.Id}");

@@ -21,7 +21,7 @@ public class AgregarSiniestroUseCase
                 break;
             }
         }
-        if(fechaI>siniestro.Fecha_incidente && fechaF<siniestro.Fecha_incidente){
+        if(fechaI<siniestro.Fecha_incidente && fechaF>siniestro.Fecha_incidente){
             _repoS.AgregarSiniestro(siniestro);
         }
         else{
