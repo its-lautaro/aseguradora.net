@@ -13,6 +13,7 @@ public class RepositorioTitularSQL: DbContext, IRepositorioTitular
         optionsBuilder.UseSqlite("data source=Aseguradora.sqlite");
     }
     public void AgregarTitular(Titular t){
+        
 
     }
     private bool unico(Titular t)

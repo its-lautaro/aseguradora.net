@@ -12,7 +12,6 @@ public abstract class Persona
 
     public Persona(int dni, string apellido, string nombre, int telefono)
     {
-        Id = -1;
         DNI = dni;
         Apellido = apellido;
         Nombre = nombre;

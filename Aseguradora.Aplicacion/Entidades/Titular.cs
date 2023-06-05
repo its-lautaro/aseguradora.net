@@ -2,6 +2,7 @@ namespace Aseguradora.Aplicacion.Entidades;
 
 public class Titular : Persona
 {
+    public int Id { get; set; }
     public string Direccion { get; set; }
     public string Correo { get; set; }
 
@@ -10,10 +11,11 @@ public class Titular : Persona
         set;
     }
     
-    public Titular(int dni, string apellido, string nombre, int tel, string direccion, string correo) : base(dni, apellido, nombre, tel)
+    public Titular(int DNI, string Apellido, string Nombre, int Telefono, string Direccion, string Correo) : base(DNI, Apellido, Nombre, Telefono)
     {
-        Correo = correo;
-        Direccion = direccion;
+        this.Id = Id;
+        this.Correo = Correo;
+        this.Direccion = Direccion;
     }
 
     public override string ToString()

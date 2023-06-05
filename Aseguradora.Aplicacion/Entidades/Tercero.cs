@@ -2,14 +2,17 @@ namespace Aseguradora.Aplicacion.Entidades;
 
 public class Tercero : Persona
 {
+    public int Id { get; set; }
+    
     public string Aseguradora { get; set; }
 
     public int IdSiniestro { get; set; }
 
-    public Tercero(int dni, string apellido, string nombre, int tel, string aseguradora, int idsiniestro) : base(dni, apellido, nombre, tel)
+    public Tercero(int DNI, string Apellido, string Nombre, int Telefono, string Aseguradora, int IdSiniestro) : base(DNI, Apellido, Nombre, Telefono)
     {
-        Aseguradora = aseguradora;
-        IdSiniestro = idsiniestro;
+        this.Id = Id;
+        this.Aseguradora = Aseguradora;
+        this.IdSiniestro = IdSiniestro;
     }
 
     public override string ToString()
