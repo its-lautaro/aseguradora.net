@@ -3,36 +3,38 @@ using Aseguradora.Aplicacion.Entidades;
 using Aseguradora.Repositorios;
 
 //creamos los casos de uso inyectando dependencias
-RepositorioPolizaTXT repoPoliza = new RepositorioPolizaTXT();
-AgregarPolizaUseCase agregarPoliza = new AgregarPolizaUseCase(repoPoliza);
-ModificarPolizaUseCase modificarPoliza = new ModificarPolizaUseCase(repoPoliza);
-EliminarPolizaUseCase eliminarPoliza = new EliminarPolizaUseCase(repoPoliza);
-ListarPolizasUseCase listarPolizas = new ListarPolizasUseCase(repoPoliza);
 
 RepositorioVehiculoTXT repoVehiculo = new RepositorioVehiculoTXT();
+RepositorioTitularTXT repoTitular = new RepositorioTitularTXT();
+RepositorioTerceroTXT repoTercero = new RepositorioTerceroTXT();
+RepositorioSiniestroTXT repoSiniestro = new RepositorioSiniestroTXT();
+RepositorioPolizaTXT repoPoliza = new RepositorioPolizaTXT();
+
 AgregarVehiculoUseCase agregarVehiculo = new AgregarVehiculoUseCase(repoVehiculo);
 ModificarVehiculoUseCase modificarVehiculo = new ModificarVehiculoUseCase(repoVehiculo);
 EliminarVehiculoUseCase eliminarVehiculo = new EliminarVehiculoUseCase(repoVehiculo, repoPoliza);
 ListarVehiculosUseCase listarVehiculos = new ListarVehiculosUseCase(repoVehiculo);
 
-RepositorioTitularTXT repoTitular = new RepositorioTitularTXT();
 AgregarTitularUseCase agregarTitular = new AgregarTitularUseCase(repoTitular);
 ModificarTitularUseCase modificarTitular = new ModificarTitularUseCase(repoTitular);
 EliminarTitularUseCase eliminarTitular = new EliminarTitularUseCase(repoTitular, repoVehiculo);
 ListarTitularesUseCase listarTitulares = new ListarTitularesUseCase(repoTitular);
 ListarTitularesConSusVehiculosUseCase listarTitularesConSusVehiculos = new ListarTitularesConSusVehiculosUseCase(repoTitular, repoVehiculo);
 
-RepositorioTerceroTXT repoTercero = new RepositorioTerceroTXT();
 AgregarTerceroUseCase agregarTercero= new AgregarTerceroUseCase(repoTercero);
 ModificarTerceroUseCase modificarTercero= new ModificarTerceroUseCase(repoTercero);
 EliminarTerceroUseCase eliminarTercero= new EliminarTerceroUseCase(repoTercero);
 ListarTercerosUseCase listarTerceros = new ListarTercerosUseCase(repoTercero);
 
-RepositorioSiniestroTXT repoSiniestro = new RepositorioSiniestroTXT();
 AgregarSiniestroUseCase agregarSiniestro = new AgregarSiniestroUseCase(repoSiniestro,repoPoliza);
 ModificarSiniestroUseCase modificarSiniestro = new ModificarSiniestroUseCase(repoSiniestro);
 EliminarSiniestroUseCase eliminarSiniestro = new EliminarSiniestroUseCase(repoTercero,repoSiniestro);
 ListarSiniestrosUseCase listarSiniestros = new ListarSiniestrosUseCase(repoSiniestro);
+
+AgregarPolizaUseCase agregarPoliza = new AgregarPolizaUseCase(repoPoliza);
+ModificarPolizaUseCase modificarPoliza = new ModificarPolizaUseCase(repoPoliza);
+EliminarPolizaUseCase eliminarPoliza = new EliminarPolizaUseCase(repoPoliza, repoSiniestro);
+ListarPolizasUseCase listarPolizas = new ListarPolizasUseCase(repoPoliza);
 
 // //Instanciamos un titular
 // Titular titular = new Titular(33123456, "García", "Juan", 221654132, "44 1413", "juan@hotmail.com");
