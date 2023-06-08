@@ -45,6 +45,10 @@ builder.Services.AddScoped<IRepositorioVehiculo, RepositorioVehiculoSQL>();
 builder.Services.AddScoped<IRepositorioSiniestro, RepositorioSiniestroSQL>();
 builder.Services.AddScoped<IRepositorioPoliza, RepositorioPolizaSQL>();
 
+//inicializamos la base de datos
+AseguradoraContext db = new AseguradoraContext();
+db.Inicializar();
+
 var app = builder.Build();
 
 // Configure the HTTP request pipeline.
