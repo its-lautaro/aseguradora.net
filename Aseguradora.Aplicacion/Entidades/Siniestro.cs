@@ -8,9 +8,9 @@ public class Siniestro{
     public string Direccion { get; set; }
     public string Descripcion { get; set; }
 
-    public Siniestro(int idpoliza, DateTime fecha_ingreso, DateTime fecha_incidente, string direccion, string descripcion){
+    public Siniestro(int PolizaId, DateTime fecha_ingreso, DateTime fecha_incidente, string direccion, string descripcion){
         Id=-1;
-        PolizaId=idpoliza;
+        this.PolizaId=PolizaId;
         Fecha_ingreso=fecha_ingreso;
         Fecha_incidente=fecha_incidente;
         Direccion=direccion;

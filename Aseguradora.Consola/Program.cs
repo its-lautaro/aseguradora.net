@@ -4,9 +4,14 @@ using Aseguradora.Repositorios;
 
 //creamos los casos de uso inyectando dependencias
 RepositorioTitularSQL repoTitular = new RepositorioTitularSQL();
+AseguradoraContext db = new AseguradoraContext();
 
 ListarTitularesUseCase listarTitulares = new ListarTitularesUseCase(repoTitular);
+AgregarTitularUseCase agregarTitular = new AgregarTitularUseCase(repoTitular);
 
+Titular t = new Titular(42123456,"Prueba","Titular",221,"Calle falsa 123","jordan@michael.com");
+
+PersistirTitular(t);
 ListarTitulares();
 
 void ListarTitulares()
@@ -19,21 +24,16 @@ void ListarTitulares()
     }
 }
 
-// //instanciamos un titular
-// Titular titular = new Titular(123, "ApellidoTest", "NombreTest", 456, "42 1413", "lautaro@gmail.com");
-// Console.WriteLine($"Titular instanciado: id:{titular.Id}");
-// PersistirTitular(titular);
-// Console.WriteLine($"Titular persistido: id:{titular.Id}");
-
 //métodos locales
-// void PersistirTitular(Titular t)
-// {
-//     try
-//     {
-//         agregarTitular.Ejecutar(t);
-//     }
-//     catch (Exception e) //excepciones de i/o
-//     {
-//         Console.WriteLine(e.Message);
-//     }
-// }
+void PersistirTitular(Titular t)
+{
+    try
+    {
+        agregarTitular.Ejecutar(t);
+    }
+    catch (Exception e) //excepciones de i/o
+    {
+        Console.WriteLine(e.Message);
+    }
+}
+

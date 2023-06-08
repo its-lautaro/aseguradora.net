@@ -8,10 +8,10 @@ public class Tercero : Persona
 
     public int SiniestroId { get; set; }
 
-    public Tercero(int DNI, string Apellido, string Nombre, int Telefono, string Aseguradora, int IdSiniestro) : base(DNI, Apellido, Nombre, Telefono)
+    public Tercero(int DNI, string Apellido, string Nombre, int Telefono, string Aseguradora, int SiniestroId) : base(DNI, Apellido, Nombre, Telefono)
     {
         this.Aseguradora = Aseguradora;
-        this.SiniestroId = IdSiniestro;
+        this.SiniestroId = SiniestroId;
     }
 
     public override string ToString()

@@ -3,26 +3,47 @@ using Aseguradora.Aplicacion.Entidades;
 using Microsoft.EntityFrameworkCore;
 namespace Aseguradora.Repositorios;
 
-public class RepositorioTitularSQL: DbContext, IRepositorioTitular
+public class RepositorioTitularSQL : DbContext, IRepositorioTitular
 {
-    DbSet<Titular> titulares = AseguradoraContext.Instancia().Titulares;
+#nullable disable
+    public DbSet<Titular> Titulares { get; set; }
+    public DbSet<Vehiculo> Vehiculos { get; set; }
+#nullable restore
 
-    public void AgregarTitular(Titular t){
-        AseguradoraContext.Instancia().Add(t);
-        AseguradoraContext.Instancia().SaveChanges();
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    {
+        optionsBuilder.UseSqlite("data source=Aseguradora.sqlite");
     }
-    public void ModificarTitular(Titular t){
+
+    public void AgregarTitular(Titular t)
+    {
+        if(!esUnico(t)) throw new Exception("El dni ya existe");
+
+        Add(t);
+        SaveChanges();
+    }
+
+    private bool esUnico(Titular t)
+    {
+        if (Titulares.Where<Titular>(n => n.DNI == t.DNI).Count() == 0) return true;
+        else return false;
 
     }
 
-    public Titular EliminarTitular(int dni){
-        Titular t=new Titular(1,"test","test",1,"test","test");
-        
+    public void ModificarTitular(Titular t)
+    {
+
+
+    }
+
+    public Titular EliminarTitular(int dni)
+    {
+        Titular t = new Titular(1, "test", "test", 1, "test", "test");
+
         return t;
     }
     public List<Titular> ListarTitulares()
     {
-        DbSet<Titular> titulares = AseguradoraContext.Instancia().Titulares;
-        return titulares.ToList<Titular>();
+        return Titulares.ToList<Titular>();
     }
 }
