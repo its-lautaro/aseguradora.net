@@ -16,8 +16,8 @@ public class RepositorioTitularSQL :  IRepositorioTitular
 
     private bool esUnico(Titular t)
     {
-        if (db.Titulares.Any(n => n.DNI == t.DNI)) return true;
-        else return false;
+        if (db.Titulares.Any(n => n.DNI == t.DNI)) return false;
+        else return true;
 
     }
 

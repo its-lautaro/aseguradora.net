@@ -8,12 +8,29 @@ AseguradoraContext dbContext = new AseguradoraContext();
 
 ListarTitularesUseCase listarTitulares = new ListarTitularesUseCase(repoTitular);
 AgregarTitularUseCase agregarTitular = new AgregarTitularUseCase(repoTitular);
+ModificarTitularUseCase modificarTitular = new ModificarTitularUseCase(repoTitular);
 
-Titular t = new Titular(42123456,"Prueba","Titular",221,"Calle falsa 123","jordan@michael.com");
+Titular t = new Titular(42123456, "Prueba", "Titular", 221, "Calle falsa 123", "jordan@michael.com");
 
 dbContext.Inicializar();
+
 PersistirTitular(t);
 ListarTitulares();
+t.Nombre = "Modificado";
+ModificarTitular(t);
+ListarTitulares();
+
+void ModificarTitular(Titular t)
+{
+    try
+    {
+        modificarTitular.Ejecutar(t);
+    }
+    catch (Exception e)
+    {
+        Console.WriteLine(e.Message);
+    }
+}
 
 void ListarTitulares()
 {
