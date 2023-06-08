@@ -1,5 +1,5 @@
-@page "/titulares"
-@inject ListarTitularesUseCase listarTitulares;
+@page "/terceros"
+@inject ListarTercerosUseCase listarTerceros;
 
 <table>
     <thead>
@@ -7,9 +7,9 @@
             <td>ID</td>
             <td>Nombre</td>
             <td>Apellido</td>
-            <td>Direccion</td>
+            <td>Aseguradora</td>
             <td>Telefono</td>
-            <td>Correo</td>
+            <td>Siniestro</td>
         </tr>
     </thead>
     <tbody>
@@ -19,19 +19,18 @@
                 <td>@titular.Id</td>
                 <td>@titular.Nombre</td>
                 <td>@titular.Apellido</td>
-                <td>@titular.Direccion</td>
                 <td>@titular.Telefono</td>
-                <td>@titular.Correo</td>
-                <td>@titular.Vehiculos?.Count()</td>
+                <td>@titular.Aseguradora</td>
+                <td>@titular.SiniestroId</td>
             </tr>
         }
     </tbody>
 </table>
 
 @code {
-    List<Titular>? _lista;
+    List<Tercero> _lista;
     protected override void OnInitialized()
     {
-        _lista = listarTitulares.Ejecutar();
+        _lista = listarTerceros.Ejecutar();
     }
 }
