@@ -4,13 +4,14 @@ using Aseguradora.Repositorios;
 
 //creamos los casos de uso inyectando dependencias
 RepositorioTitularSQL repoTitular = new RepositorioTitularSQL();
-AseguradoraContext db = new AseguradoraContext();
+AseguradoraContext dbContext = new AseguradoraContext();
 
 ListarTitularesUseCase listarTitulares = new ListarTitularesUseCase(repoTitular);
 AgregarTitularUseCase agregarTitular = new AgregarTitularUseCase(repoTitular);
 
 Titular t = new Titular(42123456,"Prueba","Titular",221,"Calle falsa 123","jordan@michael.com");
 
+dbContext.Inicializar();
 PersistirTitular(t);
 ListarTitulares();
 
