@@ -29,9 +29,13 @@
 </table>
 
 @code {
-    List<Titular>? _lista;
+    List<Titular> _lista = new List<Titular>();
     protected override void OnInitialized()
     {
+        try{
         _lista = listarTitulares.Ejecutar();
+        }catch{
+
+        }
     }
 }
