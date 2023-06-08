@@ -2,7 +2,7 @@ namespace Aseguradora.Repositorios;
 using Aseguradora.Aplicacion.Interfaces;
 using Aseguradora.Aplicacion.Entidades;
 
-public class RepositorioPolizaTSQL : IRepositorioPoliza
+public class RepositorioPolizaSQL : IRepositorioPoliza
 {
     AseguradoraContext db = new AseguradoraContext();
     public void AgregarPoliza(Poliza poliza)
