@@ -1,14 +1,13 @@
 using Aseguradora.Aplicacion.Interfaces;
 using Aseguradora.Aplicacion.Entidades;
-using Microsoft.EntityFrameworkCore;
 namespace Aseguradora.Repositorios;
 
-public class RepositorioTitularSQL :  IRepositorioTitular
+public class RepositorioTitularSQL : IRepositorioTitular
 {
     AseguradoraContext db = new AseguradoraContext();
     public void AgregarTitular(Titular t)
     {
-        if(!esUnico(t)) throw new Exception("El dni ya existe");
+        if (!esUnico(t)) throw new Exception("El dni ya existe");
 
         db.Add(t);
         db.SaveChanges();
@@ -20,12 +19,11 @@ public class RepositorioTitularSQL :  IRepositorioTitular
         else return true;
 
     }
-
     public void ModificarTitular(Titular t)
     {
         //Lo busca por DNI
-        var existente = db.Titulares.Where(n=>n.DNI == t.DNI).SingleOrDefault();
-        
+        Titular? existente = db.Titulares.Where(n => n.DNI == t.DNI).SingleOrDefault();
+
         if (existente == null) throw new Exception("No se pudo modificar, no existe\n");
 
         existente.Apellido = t.Apellido;
@@ -33,16 +31,22 @@ public class RepositorioTitularSQL :  IRepositorioTitular
         existente.Correo = t.Correo;
         existente.Direccion = t.Direccion;
         existente.Vehiculos = t.Vehiculos;
-        existente.Telefono=t.Telefono;
+        existente.Telefono = t.Telefono;
 
         db.SaveChanges();
     }
 
     public Titular EliminarTitular(int dni)
     {
-        Titular t = new Titular(1, "test", "test", 1, "test", "test");
+        Titular? borrar = db.Titulares.Where(n => n.DNI == dni).SingleOrDefault();
 
-        return t;
+        if (borrar == null) throw new Exception("Error al borrar. No existe el dni");
+
+        db.Remove(borrar);
+
+        db.SaveChanges();
+
+        return borrar;
     }
     public List<Titular> ListarTitulares()
     {
