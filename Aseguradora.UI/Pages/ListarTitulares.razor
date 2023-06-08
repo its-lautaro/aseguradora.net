@@ -1,0 +1,37 @@
+@page "/titulares"
+@inject ListarTercerosUseCase listarTerceros;
+
+<table>
+    <thead>
+        <tr>
+            <td>ID</td>
+            <td>Nombre</td>
+            <td>Apellido</td>
+            @* <td>Direccion</td>
+            <td>Telefono</td>
+            <td>Correo</td> *@
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var titular in _lista)
+        {
+            <tr>
+                <td>@titular.Id</td>
+                <td>@titular.Nombre</td>
+                <td>@titular.Apellido</td>
+                @* <td>@titular.Direccion</td>
+                <td>@titular.Telefono</td>
+                <td>@titular.Correo</td>
+                <td>@titular.Vehiculos?.Count()</td> *@
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<Tercero> _lista;
+    protected override void OnInitialized()
+    {
+        _lista = listarTerceros.Ejecutar();
+    }
+}
