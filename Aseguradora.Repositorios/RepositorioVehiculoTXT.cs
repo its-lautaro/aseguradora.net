@@ -21,7 +21,7 @@ public class RepositorioVehiculoTXT : IRepositorioVehiculo
         sw.WriteLine(vehiculo.Dominio);
         sw.WriteLine(vehiculo.Marca);
         sw.WriteLine(vehiculo.Año);
-        sw.WriteLine(vehiculo.IdTitular);
+        sw.WriteLine(vehiculo.TitularId);
         sw.Close();
     }
     public void ModificarVehiculo(Vehiculo vehiculo)
@@ -81,7 +81,7 @@ public class RepositorioVehiculoTXT : IRepositorioVehiculo
             sw.WriteLine(vehiculo.Dominio);
             sw.WriteLine(vehiculo.Marca);
             sw.WriteLine(vehiculo.Año);
-            sw.WriteLine(vehiculo.IdTitular);
+            sw.WriteLine(vehiculo.TitularId);
         }
         sw.Close();
     }
@@ -98,7 +98,7 @@ public class RepositorioVehiculoTXT : IRepositorioVehiculo
                 vehiculo.Dominio = sr.ReadLine() ?? "";
                 vehiculo.Marca = sr.ReadLine() ?? "";
                 vehiculo.Año = int.Parse(sr.ReadLine() ?? "");
-                vehiculo.IdTitular = int.Parse(sr.ReadLine() ?? "");
+                vehiculo.TitularId = int.Parse(sr.ReadLine() ?? "");
                 resultado.Add(vehiculo);
             }
         }
@@ -115,7 +115,7 @@ public class RepositorioVehiculoTXT : IRepositorioVehiculo
         var lista = ListarVehiculos();
         foreach (Vehiculo vehiculo in lista)
         {
-            if (vehiculo.IdTitular == idT)
+            if (vehiculo.TitularId == idT)
             {
                 resultado.Add(vehiculo);
             }

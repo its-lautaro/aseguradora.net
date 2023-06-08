@@ -18,7 +18,7 @@ public class EliminarPolizaUseCase
         List<Siniestro> siniestros = _repoS.ListarSiniestros();
         List<int>? indiceS = new List<int>();
         foreach (Siniestro s in siniestros){
-            if (s.IdPoliza == id){
+            if (s.PolizaId == id){
                 indiceS.Add(s.Id);
             }
         }

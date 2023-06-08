@@ -18,7 +18,7 @@ public class EliminarSiniestroUseCase
         int idT=-1;
         //Eliminar el tercero involucrado en el siniestro
         foreach (Tercero t in list){
-            if (t.IdSiniestro == id ){
+            if (t.SiniestroId == id ){
                 idT=t.Id;
                 break;
             }

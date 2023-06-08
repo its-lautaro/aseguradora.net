@@ -6,7 +6,7 @@ public class Poliza
     {
         get ; set;
     }
-    public int IdVehiculo { get; set; }
+    public int VehiculoId { get; set; }
     public int ValorAsegurado { get; set; }
     public int Franquicia { get; set; }
 
@@ -22,7 +22,7 @@ public class Poliza
 
     public Poliza (int idvehiculo, int valorasegurado, int franquicia, TipoCobertura cobertura, DateTime fecha_inicio, DateTime fecha_fin){
         Id=-1;
-        IdVehiculo=idvehiculo;
+        VehiculoId=idvehiculo;
         ValorAsegurado=valorasegurado;
         Franquicia=franquicia;
         Cobertura=cobertura;
@@ -31,6 +31,6 @@ public class Poliza
     }
     public override string ToString()
     {
-        return $"{Id}: Vehiculo: {IdVehiculo}, Valor: ARS {ValorAsegurado}, Franquicia: ARS {Franquicia}, Tipo de cobertura: {Cobertura},  Vigencia desde {Fecha_inicio} hasta {Fecha_fin}";
+        return $"{Id}: Vehiculo: {VehiculoId}, Valor: ARS {ValorAsegurado}, Franquicia: ARS {Franquicia}, Tipo de cobertura: {Cobertura},  Vigencia desde {Fecha_inicio} hasta {Fecha_fin}";
     }
 }

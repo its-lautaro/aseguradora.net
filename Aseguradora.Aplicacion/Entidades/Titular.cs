@@ -13,13 +13,12 @@ public class Titular : Persona
     
     public Titular(int DNI, string Apellido, string Nombre, int Telefono, string Direccion, string Correo) : base(DNI, Apellido, Nombre, Telefono)
     {
-        this.Id = Id;
         this.Correo = Correo;
         this.Direccion = Direccion;
     }
 
     public override string ToString()
     {
-        return $"{Id}: {DNI} {Apellido}, {Nombre} {Direccion} {Telefono} {Correo}";
+        return $"{Id}: DNI:{DNI} Apellido:{Apellido}, Nombre:{Nombre} Direccion:{Direccion} Tel.:{Telefono} Mail:{Correo}";
     }
 }

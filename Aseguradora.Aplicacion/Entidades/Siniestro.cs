@@ -2,7 +2,7 @@ namespace Aseguradora.Aplicacion.Entidades;
 
 public class Siniestro{
     public int Id { get; set; }
-    public int IdPoliza { get; set; }
+    public int PolizaId { get; set; }
     public DateTime Fecha_ingreso { get; set; }
     public DateTime Fecha_incidente { get; set; }
     public string Direccion { get; set; }
@@ -10,7 +10,7 @@ public class Siniestro{
 
     public Siniestro(int idpoliza, DateTime fecha_ingreso, DateTime fecha_incidente, string direccion, string descripcion){
         Id=-1;
-        IdPoliza=idpoliza;
+        PolizaId=idpoliza;
         Fecha_ingreso=fecha_ingreso;
         Fecha_incidente=fecha_incidente;
         Direccion=direccion;
@@ -18,6 +18,6 @@ public class Siniestro{
     }
     public override string ToString()
     {
-        return $"{Id}: Poliza: {IdPoliza}, Fecha ingreso: {Fecha_ingreso}, Fecha incidente: {Fecha_incidente}, Direccion: {Direccion},  Descripcion: {Descripcion}";
+        return $"{Id}: Poliza: {PolizaId}, Fecha ingreso: {Fecha_ingreso}, Fecha incidente: {Fecha_incidente}, Direccion: {Direccion},  Descripcion: {Descripcion}";
     }
 }

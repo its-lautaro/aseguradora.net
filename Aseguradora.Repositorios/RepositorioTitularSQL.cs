@@ -5,29 +5,11 @@ namespace Aseguradora.Repositorios;
 
 public class RepositorioTitularSQL: DbContext, IRepositorioTitular
 {
-    #nullable disable
-    public DbSet<Titular> Titulares {get; set;}
-    #nullable restore
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-    {
-        optionsBuilder.UseSqlite("data source=Aseguradora.sqlite");
-    }
-    public void AgregarTitular(Titular t){
-        
+    DbSet<Titular> titulares = AseguradoraContext.Instancia().Titulares;
 
-    }
-    private bool unico(Titular t)
-    {
-        List<Titular> list = ListarTitulares();
-        int dni = t.DNI;
-        foreach (Titular i in list)
-        {
-            if (i.DNI == dni)
-            {
-                return false;
-            }
-        }
-        return true;
+    public void AgregarTitular(Titular t){
+        AseguradoraContext.Instancia().Add(t);
+        AseguradoraContext.Instancia().SaveChanges();
     }
     public void ModificarTitular(Titular t){
 
@@ -40,6 +22,7 @@ public class RepositorioTitularSQL: DbContext, IRepositorioTitular
     }
     public List<Titular> ListarTitulares()
     {
-        return Titulares.ToList<Titular>();
+        DbSet<Titular> titulares = AseguradoraContext.Instancia().Titulares;
+        return titulares.ToList<Titular>();
     }
 }

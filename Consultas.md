@@ -1,0 +1,2 @@
+1. Como seteamos la id en -1 antes de guardar una instancia en la base de datos? Hace falta?
+2. Como nos aseguramos de que la base de datos cree cada una de las tablas? Usamos un repositorio maestro o lo manejamos desde cada repositorio

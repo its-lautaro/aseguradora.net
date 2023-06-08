@@ -27,7 +27,7 @@ public class RepositorioTerceroTXT : IRepositorioTercero
         sw.WriteLine(t.Nombre);
         sw.WriteLine(t.Telefono);
         sw.WriteLine(t.Aseguradora);
-        sw.WriteLine(t.IdSiniestro);
+        sw.WriteLine(t.SiniestroId);
         sw.Close();
     }
 
@@ -78,7 +78,7 @@ public class RepositorioTerceroTXT : IRepositorioTercero
             sw.WriteLine(t.Nombre);
             sw.WriteLine(t.Telefono);
             sw.WriteLine(t.Aseguradora);
-            sw.WriteLine(t.IdSiniestro);
+            sw.WriteLine(t.SiniestroId);
         }
         sw.Close();
     }

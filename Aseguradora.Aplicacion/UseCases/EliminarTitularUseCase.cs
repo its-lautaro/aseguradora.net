@@ -16,7 +16,7 @@ public class EliminarTitularUseCase
         List<Vehiculo> list = _repoV.ListarVehiculos();
 
         foreach (Vehiculo v in list){
-            if (v.IdTitular == eliminado.Id) _repoV.EliminarVehiculo(v.Id);
+            if (v.TitularId == eliminado.Id) _repoV.EliminarVehiculo(v.Id);
         }
     }    
 }

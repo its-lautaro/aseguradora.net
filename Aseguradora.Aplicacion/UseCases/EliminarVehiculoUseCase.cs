@@ -18,7 +18,7 @@ public class EliminarVehiculoUseCase
         //suponiendo que hay una poliza por vehiculo
         List<Poliza> polizas = _repoP.ListarPolizas();
         foreach(Poliza poliza in polizas){
-            if(poliza.IdVehiculo == id){
+            if(poliza.VehiculoId == id){
                 idP=poliza.Id;
                 break;
             }

@@ -23,7 +23,7 @@ public class RepositorioSiniestroTXT : IRepositorioSiniestro
         s.Id = s_IdS;
         s_IdS++;
         sw.WriteLine(s.Id);
-        sw.WriteLine(s.IdPoliza);
+        sw.WriteLine(s.PolizaId);
         sw.WriteLine(s.Descripcion);
         sw.WriteLine(s.Direccion);
         sw.WriteLine(s.Fecha_incidente.ToString());
@@ -77,7 +77,7 @@ public class RepositorioSiniestroTXT : IRepositorioSiniestro
         foreach (var s in lista)
         {
             sw.WriteLine(s.Id);
-            sw.WriteLine(s.IdPoliza);
+            sw.WriteLine(s.PolizaId);
             sw.WriteLine(s.Descripcion);
             sw.WriteLine(s.Direccion);
             sw.WriteLine(s.Fecha_incidente.ToString());

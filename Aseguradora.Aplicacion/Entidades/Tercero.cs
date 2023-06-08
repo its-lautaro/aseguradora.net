@@ -6,18 +6,17 @@ public class Tercero : Persona
     
     public string Aseguradora { get; set; }
 
-    public int IdSiniestro { get; set; }
+    public int SiniestroId { get; set; }
 
     public Tercero(int DNI, string Apellido, string Nombre, int Telefono, string Aseguradora, int IdSiniestro) : base(DNI, Apellido, Nombre, Telefono)
     {
-        this.Id = Id;
         this.Aseguradora = Aseguradora;
-        this.IdSiniestro = IdSiniestro;
+        this.SiniestroId = IdSiniestro;
     }
 
     public override string ToString()
     {
-        return $"{Id}: {DNI} {Apellido}, {Nombre} {Telefono} {Aseguradora} {IdSiniestro}";
+        return $"{Id}: {DNI} {Apellido}, {Nombre} {Telefono} {Aseguradora} {SiniestroId}";
     }
 
 }

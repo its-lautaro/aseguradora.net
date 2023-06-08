@@ -18,7 +18,7 @@ public class RepositorioPolizaTXT : IRepositorioPoliza
         poliza.Id=s_id;
         s_id++;
         sw.WriteLine(poliza.Id);
-        sw.WriteLine(poliza.IdVehiculo);
+        sw.WriteLine(poliza.VehiculoId);
         sw.WriteLine(poliza.ValorAsegurado);
         sw.WriteLine(poliza.Franquicia);
         sw.WriteLine(poliza.Cobertura);
@@ -80,7 +80,7 @@ public class RepositorioPolizaTXT : IRepositorioPoliza
         foreach (Poliza poliza in lista)
         {
             sw.WriteLine(poliza.Id);
-            sw.WriteLine(poliza.IdVehiculo);
+            sw.WriteLine(poliza.VehiculoId);
             sw.WriteLine(poliza.ValorAsegurado);
             sw.WriteLine(poliza.Franquicia);
             sw.WriteLine(poliza.Cobertura);
@@ -102,7 +102,7 @@ public class RepositorioPolizaTXT : IRepositorioPoliza
         {
             var poliza = new Poliza();
             poliza.Id = int.Parse(sr.ReadLine() ?? "");
-            poliza.IdVehiculo = int.Parse(sr.ReadLine() ?? "");
+            poliza.VehiculoId = int.Parse(sr.ReadLine() ?? "");
             poliza.ValorAsegurado = int.Parse(sr.ReadLine() ?? "");
             poliza.Franquicia = int.Parse(sr.ReadLine() ?? "");
             if ((sr.ReadLine() ?? "") == "ResponsabilidadCivil")

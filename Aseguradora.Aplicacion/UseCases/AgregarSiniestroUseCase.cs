@@ -15,7 +15,7 @@ public class AgregarSiniestroUseCase
         List<Poliza> polizas= _repoP.ListarPolizas();
         DateTime? fechaI=null, fechaF=null;
         foreach(Poliza p in polizas){
-            if (p.Id==siniestro.IdPoliza){
+            if (p.Id==siniestro.PolizaId){
                 fechaI=p.Fecha_inicio;
                 fechaF=p.Fecha_fin;
                 break;
