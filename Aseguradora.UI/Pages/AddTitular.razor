@@ -1,0 +1,62 @@
+@page "/titular"
+@inject AgregarTitularUseCase agregarTitular
+@using Aseguradora.Aplicacion.Entidades
+
+<h3>Crear Titular</h3>
+
+@if (exito)
+{
+    <p>¡Titular creado con éxito!</p>
+}
+else
+{
+    <input placeholder="nombrecito" @bind="titular.Nombre" /><br>
+    <form>
+        <div class="form-group">
+            <label for="nombre">Nombre:</label>
+            <input type="text" class="form-control" id="nombre" @bind="titular.Nombre">
+        </div>
+        <div class="form-group">
+            <label for="apellido">Apellido:</label>
+            <input type="text" class="form-control" id="apellido" @bind="titular.Apellido">
+        </div>
+        <div class="form-group">
+            <label for="dni">DNI:</label>
+            <input type="text" class="form-control" id="dni" @bind="titular.DNI">
+        </div>
+        <div class="form-group">
+            <label for="direccion">Dirección:</label>
+            <input type="text" class="form-control" id="direccion" @bind="titular.Direccion">
+        </div>
+        <div class="form-group">
+            <label for="correo">Correo:</label>
+            <input type="text" class="form-control" id="correo" @bind="titular.Correo">
+        </div>
+        <div class="form-group">
+            <label for="telefono">Teléfono:</label>
+            <input type="text" class="form-control" id="telefono" @bind="titular.Telefono">
+        </div>
+        <button type="button" class="btn btn-primary" @onclick="CrearTitular">Crear</button>
+    </form>
+}
+
+@code {
+    Titular titular = new Titular();
+    Tercero t= new Tercero();
+    Vehiculo v= new Vehiculo();
+    Poliza p= new Poliza();
+    Siniestro s= new Siniestro();
+    private bool exito = false;
+
+    private void CrearTitular()
+    {
+        Console.WriteLine($"{titular.Apellido}");
+        // Lógica para guardar el titular en la base de datos
+        // Puedes usar Entity Framework, Dapper, u otra herramienta de acceso a datos aquí
+        // Por ejemplo:
+        // dbContext.Titulares.Add(titular);
+        // dbContext.SaveChanges();
+
+        exito = true;
+    }
+}
