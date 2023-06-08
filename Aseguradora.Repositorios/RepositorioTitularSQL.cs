@@ -7,7 +7,7 @@ public class RepositorioTitularSQL : IRepositorioTitular
     AseguradoraContext db = new AseguradoraContext();
     public void AgregarTitular(Titular t)
     {
-        if (!esUnico(t)) throw new Exception("El dni ya existe");
+        if (!esUnico(t)) throw new Exception("Error al agregar. El dni ya existe");
 
         db.Add(t);
         db.SaveChanges();
@@ -24,7 +24,7 @@ public class RepositorioTitularSQL : IRepositorioTitular
         //Lo busca por DNI
         Titular? existente = db.Titulares.Where(n => n.DNI == t.DNI).SingleOrDefault();
 
-        if (existente == null) throw new Exception("No se pudo modificar, no existe\n");
+        if (existente == null) throw new Exception("Error al modificar. El dni no existe");
 
         existente.Apellido = t.Apellido;
         existente.Nombre = t.Nombre;
