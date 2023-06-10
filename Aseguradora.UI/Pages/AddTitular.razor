@@ -1,19 +1,11 @@
 @page "/titular"
 @inject AgregarTitularUseCase agregarTitular
-@using Aseguradora.Aplicacion.Entidades
+@inject NavigationManager NavigationManager
 
-<h3>Crear Titular</h3>
+<h3>Agregar Titular</h3>
 
-@if (exito)
-{
-    <p>¡Titular creado con éxito!</p>
-    @titular.Nombre
-    @titular.Apellido
-    @titular.Telefono
-}
-else
-{
-    <form>
+@* Formulario para agregar Titular *@
+<form>
     <div class="form-group">
         <label for="nombre">Nombre:</label>
         <input type="text" class="form-control" id="nombre" @bind="titular.Nombre">
@@ -38,28 +30,43 @@ else
         <label for="telefono">Teléfono:</label>
         <input type="number" class="form-control" id="telefono" @bind="titular.Telefono">
     </div>
-    <button type="button" class="btn btn-primary" @onclick="CrearTitular">Crear</button>
+    <div>
+        <br />
+        <button type="button" class="btn btn-primary" @onclick="CrearTitular">Crear</button>
+    </div>
 </form>
-}
+@* Componente para mostrar errores *@
+<Excepcion @ref=dialogo />
+
 
 @code {
     Titular titular = new Titular();
-    Tercero t = new Tercero();
-    Vehiculo v = new Vehiculo();
-    Poliza p = new Poliza();
-    Siniestro s = new Siniestro();
-    private bool exito = false;
+    bool exito =false;
+    Excepcion dialogo = null!;
 
     private void CrearTitular()
     {
         try
         {
             agregarTitular.Ejecutar(titular);
-        }
-        catch (Exception e) {
-             Console.WriteLine(e.Message); 
-        }
+            exito=true;
 
-        exito = true;
+        }
+        catch (Exception e)
+        {
+            Error(e.Message);
+        }
+        if (exito) Siguiente();
+    }
+
+
+    private void Error(string msj)
+    {
+        dialogo.Mostrar(msj);
+    }
+    // El titular se creo con exito y ahora se le agrega un vehículo
+    private void Siguiente()
+    {
+        NavigationManager.NavigateTo($"/vehiculo/{titular.Id}");
     }
 }

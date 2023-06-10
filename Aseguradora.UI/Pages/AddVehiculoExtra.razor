@@ -1,0 +1,31 @@
+@page "/vehiculo"
+@inject BuscarTitularUseCase buscarTitular
+@inject NavigationManager NavigationManager
+
+<h3>Agregar Vehículo a titular</h3>
+<form>
+    <div class="form-group">
+        <label for="titular">DNI del Titular:</label>
+        <input type="number" id="titular" @bind="@DNIBuscado" />
+    </div>
+    <div>
+        <button type="button" class="btn btn-primary" @onclick="Buscar">Buscar</button>
+    </div>
+</form>
+<Excepcion @ref=dialogo />
+
+@code {
+
+    int DNIBuscado;
+    Excepcion dialogo = null!;
+    private void Buscar()
+    {
+        Titular? encontrado = buscarTitular.Ejecutar(DNIBuscado);
+        if (encontrado == null) dialogo.Mostrar("El titular buscado no existe");
+        else
+        {
+            //Generar un cartel para confirmar que se trata del titular correcto!!
+            NavigationManager.NavigateTo($"/vehiculo/{encontrado.Id}");
+        }
+    }
+}

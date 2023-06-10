@@ -1,0 +1,68 @@
+@page "/vehiculo/{id}"
+@inject AgregarVehiculoUseCase agregarVehiculo
+@inject NavigationManager NavigationManager
+
+<h3>Agregar Vehículo</h3>
+
+@* Formulario para agregar Vehículo *@
+<form>
+    <div class="form-group">
+        <label for="dominio">Dominio:</label>
+        <input type="text" class="form-control" id="dominio" @bind="vehiculo.Dominio">
+    </div>
+    <div class="form-group">
+        <label for="marca">Marca:</label>
+        <input type="text" class="form-control" id="marca" @bind="vehiculo.Marca">
+    </div>
+    <div class="form-group">
+        <label for="año">Año:</label>
+        <input type="number" class="form-control" id="año" @bind="vehiculo.Año">
+    </div>
+    <div>
+        <br />
+        <button type="button" class="btn btn-primary" @onclick="CrearVehiculo">Crear</button>
+    </div>
+</form>
+@* Componente para mostrar errores *@
+<Excepcion @ref=dialogo />
+
+
+@code {
+    [Parameter]
+    public string? Id { get; set; }
+    bool exito = false;
+    Excepcion dialogo = null!;
+    Vehiculo vehiculo = new Vehiculo();
+
+    protected override void OnInitialized()
+    {
+        if(Id!=null) vehiculo.TitularId = int.Parse(Id);
+    }
+
+
+    private void CrearVehiculo()
+    {
+        try
+        {
+            agregarVehiculo.Ejecutar(vehiculo);
+            exito = true;
+
+        }
+        catch (Exception e)
+        {
+            Error(e.Message);
+        }
+        if (exito) Siguiente();
+    }
+
+
+    private void Error(string msj)
+    {
+        dialogo.Mostrar(msj);
+    }
+    // El vehiculo se creo con exito y ahora se le agrega la poliza
+    private void Siguiente()
+    {
+        NavigationManager.NavigateTo($"/poliza/{vehiculo.Id}");
+    }
+}

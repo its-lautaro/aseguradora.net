@@ -31,6 +31,7 @@ builder.Services.AddTransient<ListarTercerosUseCase>();
 builder.Services.AddTransient<ModificarTerceroUseCase>();
 
 builder.Services.AddTransient<EliminarTitularUseCase>();
+builder.Services.AddTransient<BuscarTitularUseCase>();
 builder.Services.AddTransient<ListarTitularesUseCase>();
 builder.Services.AddTransient<ModificarTitularUseCase>();
 
