@@ -30,7 +30,7 @@ public class RepositorioTitularSQL : IRepositorioTitular
         existente.Nombre = t.Nombre;
         existente.Correo = t.Correo;
         existente.Direccion = t.Direccion;
-        existente.Vehiculos = t.Vehiculos;
+        //existente.Vehiculos = t.Vehiculos;
         existente.Telefono = t.Telefono;
 
         db.SaveChanges();
@@ -51,5 +51,13 @@ public class RepositorioTitularSQL : IRepositorioTitular
     public List<Titular> ListarTitulares()
     {
         return db.Titulares.ToList<Titular>();
+    }
+
+    public Titular? BuscarTitular(int dni){
+        //La propiedad dni del titular nunca va a ser null si esta persistido en la base de datos
+        #nullable disable
+        Titular encontrado = db.Titulares.Where(n => n.DNI == dni).SingleOrDefault();
+        #nullable restore
+        return encontrado;
     }
 }
