@@ -36,6 +36,7 @@ builder.Services.AddTransient<ListarTitularesUseCase>();
 builder.Services.AddTransient<ModificarTitularUseCase>();
 
 builder.Services.AddTransient<EliminarVehiculoUseCase>();
+builder.Services.AddTransient<BuscarVehiculoUseCase>();
 builder.Services.AddTransient<ListarVehiculosUseCase>();
 builder.Services.AddTransient<ModificarVehiculoUseCase>();
 builder.Services.AddTransient<ListarTitularesConSusVehiculosUseCase>();

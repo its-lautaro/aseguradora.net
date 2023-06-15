@@ -7,4 +7,6 @@ public interface IRepositorioVehiculo {
     void EliminarVehiculo(int id);
     List<Vehiculo> ListarVehiculos();
     List<Vehiculo> ListarVehiculosPorTitular(int idT);
+    public Vehiculo? BuscarVehiculo(int id);
+
 }
