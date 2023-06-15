@@ -1,0 +1,69 @@
+@page "/vehiculos"
+
+@inject NavigationManager Navegador
+@inject ListarVehiculosUseCase listarVehiculos
+@inject EliminarVehiculoUseCase eliminarVehiculo
+@inject ModificarVehiculoUseCase modificarVehiculo
+
+<h3>Listado de vehiculos </h3>
+
+<NavLink href="/vehiculo" type="button" class="btn btn-success">Agregar Vehiculo</NavLink>
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Dominio</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Año</th>
+        <th scope="col">ID Titular</th>
+        <th scope="col">&nbsp;</th> 
+    </tr>
+  </thead>
+  <tbody>
+        @foreach (var vehiculo in _lista)
+        {
+            <tr>
+                <td>@vehiculo.Id</td>
+                <td>@vehiculo.Dominio</td>
+                <td>@vehiculo.Marca</td>
+                <td>@vehiculo.Año</td>
+                <td>@vehiculo.TitularId</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarVehiculo(vehiculo.Id)">
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>EliminarVehiculo(vehiculo.Id)">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" @onclick="()=>MiPoliza(vehiculo.Id)">Poliza</button>
+                    <button type="button" class="btn btn-warning" @onclick="()=>AgregarSiniestro(vehiculo.Id, vehiculo.Dominio)">Nuevo Siniestro</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<Vehiculo> _lista = new List<Vehiculo>();
+    protected override void OnInitialized()
+    {
+        _lista = listarVehiculos.Ejecutar();
+    }
+    private void EliminarVehiculo(int id)
+    {
+        eliminarVehiculo.Ejecutar(id);
+        Navegador.NavigateTo(Navegador.Uri, forceLoad: true);
+    }
+    private void ModificarVehiculo(int id)
+    {
+        Navegador.NavigateTo($"editVehiculo/{id}");
+    }
+    private void MiPoliza(int idV)
+    {
+        Navegador.NavigateTo($"vehiculos/{idV}/poliza"); 
+    }
+    private void AgregarSiniestro(int idV, string dom)
+    {
+        Navegador.NavigateTo($"siniestro/{idV}/{dom}"); 
+    }
+}

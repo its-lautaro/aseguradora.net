@@ -1,0 +1,64 @@
+@page "/editVehiculo/{idV}"
+
+@inject ModificarVehiculoUseCase modificarVehiculo
+@inject BuscarVehiculoUseCase buscarVehiculo
+@inject NavigationManager NavigationManager
+
+
+<h3>Datos de @vehiculo.Dominio </h3>
+
+@* Formulario para editar Titular *@
+<form>
+    <div class="form-group">
+        <label for="dominio">Dominio:</label>
+        <input type="text" class="form-control" id="dominio" @bind="vehiculo.Dominio">
+    </div>
+    <div class="form-group">
+        <label for="marca">Marca:</label>
+        <input type="text" class="form-control" id="marca" @bind="vehiculo.Marca">
+    </div>
+    <div class="form-group">
+        <label for="año">Año:</label>
+        <input type="text" class="form-control" id="año" @bind="vehiculo.Año">
+    </div>
+    <div class="form-group">
+        <label for="titularId">ID Titular:</label>
+        <input class="form-control" type="number" value=@vehiculo.TitularId readonly>
+    </div>
+
+    <div>
+        <br />
+        <button type="button" class="btn btn-primary" @onclick="EditarVehiculo">Guardar</button>
+    </div>
+</form>
+@* Componente para mostrar errores *@
+<Confirmacion OnConfirmado="GuardarVehiculo" @ref=confirmacion />
+
+
+
+@code {
+    [Parameter]
+    public string? idV {get; set;}
+    Vehiculo vehiculo = new Vehiculo();
+    Confirmacion confirmacion = null!;
+
+    protected override void OnInitialized()
+    {
+        //ya se que siempre voy a modificar un vehiculo que existe
+        #nullable disable
+        vehiculo = buscarVehiculo.Ejecutar(int.Parse(idV));
+        #nullable restore
+    }
+    private void EditarVehiculo()
+    {
+        confirmacion.Mensaje = $"Desea guardar los cambios?";
+        confirmacion.Mostrar();
+    
+    }
+    private void GuardarVehiculo()
+    {
+        modificarVehiculo.Ejecutar(vehiculo);
+        NavigationManager.NavigateTo($"vehiculos");
+    }
+    
+}

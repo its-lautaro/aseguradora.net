@@ -1,0 +1,82 @@
+@page "/vehiculos/{idT}"
+
+@inject NavigationManager Navegador
+@inject ListarTitularesConSusVehiculosUseCase listarVehiculosTitular
+@inject EliminarVehiculoUseCase eliminarVehiculo
+@inject ModificarVehiculoUseCase modificarVehiculo
+
+<h3>Vehiculos de @titu.Nombre @titu.Apellido</h3>
+
+<button type="button" class="btn btn-success" @onclick="()=>OtroVehiculo()">Agregar Vehiculo</button>
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Dominio</th>
+        <th scope="col">Marca</th>
+        <th scope="col">Año</th>
+        <th scope="col">&nbsp;</th> 
+    </tr>
+  </thead>
+  <tbody>
+        @foreach (var vehiculo in listaV)
+        {
+            <tr>
+                <td>@vehiculo.Id</td>
+                <td>@vehiculo.Dominio</td>
+                <td>@vehiculo.Marca</td>
+                <td>@vehiculo.Año</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarVehiculo(vehiculo.Id)">
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>EliminarVehiculo(vehiculo.Id)">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" @onclick="()=>MiPoliza(vehiculo.Id)">Poliza</button>
+                    <button type="button" class="btn btn-warning" @onclick="()=>AgregarSiniestro(vehiculo.Id, vehiculo.Dominio)">Nuevo Siniestro</button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    [Parameter]
+    public string? idT {get; set;}
+
+    //guardarme el titular para poder mostrar su nombre arriba
+    Titular titu = new Titular();
+    List<Titular> _lista = new List<Titular>();
+    List<Vehiculo> listaV = new List<Vehiculo>();
+    
+    protected override void OnInitialized()
+    {
+        #nullable disable
+        _lista = listarVehiculosTitular.Ejecutar();//se le asignan todos sus vehiculos a los titulares
+        //siempre le voy a pedir de un titular que existe
+        titu = _lista.Where(n => n.Id == int.Parse(idT)).SingleOrDefault();
+        listaV = titu.Vehiculos;
+        #nullable restore
+    }
+    private void EliminarVehiculo(int id)
+    {
+        eliminarVehiculo.Ejecutar(id);
+        Navegador.NavigateTo(Navegador.Uri, forceLoad: true);
+    }
+    private void ModificarVehiculo(int id)
+    {
+        Navegador.NavigateTo($"editVehiculo/{id}");
+    }
+    private void MiPoliza(int idV)
+    {
+        Navegador.NavigateTo($"vehiculos/{idV}/poliza");
+    }
+    private void AgregarSiniestro(int idV, string dom)
+    {
+        Navegador.NavigateTo($"siniestro/{idV}/{dom}"); 
+    }
+    private void OtroVehiculo(){
+        Navegador.NavigateTo($"vehiculo/{idT}"); 
+    }
+}
