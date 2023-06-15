@@ -1,0 +1,72 @@
+@page "/titular/{dniT}"
+
+@inject ModificarTitularUseCase modificarTitular
+@inject BuscarTitularUseCase buscarTitular
+@inject NavigationManager NavigationManager
+
+
+<h3>Datos de @titular.Nombre @titular.Apellido </h3>
+
+@* Formulario para editar Titular *@
+<form>
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" @bind="titular.Nombre">
+    </div>
+    <div class="form-group">
+        <label for="apellido">Apellido:</label>
+        <input type="text" class="form-control" id="apellido" @bind="titular.Apellido">
+    </div>
+    <div class="form-group">
+        <label for="dni">DNI:</label>
+        <input class="form-control" type="text" value=@titular.DNI readonly>
+    </div>
+    <div class="form-group">
+        <label for="direccion">Dirección:</label>
+        <input type="text" class="form-control" id="direccion" @bind="titular.Direccion">
+    </div>
+    <div class="form-group">
+        <label for="correo">Correo:</label>
+        <input type="text" class="form-control" id="correo" @bind="titular.Correo">
+    </div>
+    <div class="form-group">
+        <label for="telefono">Teléfono:</label>
+        <input type="number" class="form-control" id="telefono" @bind="titular.Telefono">
+    </div>
+    <div>
+        <br />
+        <button type="button" class="btn btn-primary" @onclick="EditarTitular">Guardar</button>
+    </div>
+</form>
+@* Componente para mostrar errores *@
+<Confirmacion OnConfirmado="GuardarTitular" @ref=confirmacion />
+
+
+
+@code {
+    [Parameter]
+    public string? dniT {get; set;}
+
+    Titular titular = new Titular();
+    Confirmacion confirmacion = null!;
+
+    protected override void OnInitialized()
+    {
+        //ya se que siempre voy a modificar un titular que existe
+        #nullable disable
+        titular = buscarTitular.Ejecutar(int.Parse(dniT));
+        #nullable restore
+    }
+    private void EditarTitular()
+    {
+        confirmacion.Mensaje = $"Desea guardar los cambios?";
+        confirmacion.Mostrar();
+    
+    }
+    private void GuardarTitular()
+    {
+        modificarTitular.Ejecutar(titular);
+        NavigationManager.NavigateTo($"titulares");
+    }
+    
+}

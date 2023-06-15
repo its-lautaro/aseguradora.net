@@ -1,28 +1,48 @@
 @page "/titulares"
-@inject ListarTitularesUseCase listarTitulares;
+<!-- falta el modificar -->
 
-<table>
-    <thead>
-        <tr>
-            <td>ID</td>
-            <td>Nombre</td>
-            <td>Apellido</td>
-            <td>Direccion</td>
-            <td>Telefono</td>
-            <td>Correo</td>
-        </tr>
-    </thead>
-    <tbody>
+@inject NavigationManager Navegador;
+@inject ListarTitularesUseCase listarTitulares;
+@inject EliminarTitularUseCase eliminarTitular;
+@inject ModificarTitularUseCase modificarTitular;
+@inject ListarTitularesConSusVehiculosUseCase listarVehiculosTitular;
+
+<NavLink href="/titular" type="button" class="btn btn-success">Agregar Titular</NavLink>
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">DNI</th>
+        <th scope="col">Dirección</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Correo</th>
+        <th scope="col">Cant. Vehiculos</th>
+        <th scope="col">&nbsp;</th> 
+    </tr>
+  </thead>
+  <tbody>
         @foreach (var titular in _lista)
         {
             <tr>
                 <td>@titular.Id</td>
-                <td>@titular.Nombre</td>
                 <td>@titular.Apellido</td>
+                <td>@titular.Nombre</td>
+                <td>@titular.DNI</td>
                 <td>@titular.Direccion</td>
                 <td>@titular.Telefono</td>
                 <td>@titular.Correo</td>
                 <td>@titular.Vehiculos?.Count()</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarTitular(titular.DNI)">
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>EliminarTitular(titular.DNI)">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                    <button type="button" class="btn btn-secondary" @onclick="()=>VehiculosTitular(titular.Id)">Ver Vehiculos</button>
+                </td>
             </tr>
         }
     </tbody>
@@ -34,8 +54,39 @@
     {
         try{
         _lista = listarTitulares.Ejecutar();
-        }catch{
-
+        }catch (Exception e) {
+             Console.WriteLine(e.Message); 
+        }
+    }
+    private void EliminarTitular(int dni)
+    {
+        try
+        {
+            eliminarTitular.Ejecutar(dni);
+            Navegador.NavigateTo(Navegador.Uri, forceLoad: true);
+        }
+        catch (Exception e) {
+             Console.WriteLine(e.Message); 
+        }
+    }
+    private void ModificarTitular(int dni)
+    {
+        try
+        {
+            Navegador.NavigateTo($"titular/{dni}");
+        }
+        catch (Exception e) {
+             Console.WriteLine(e.Message); 
+        }
+    }
+    private void VehiculosTitular(int idT)
+    {
+        try
+        {
+            Navegador.NavigateTo($"vehiculos/{idT}"); //veo los vehiculos de un titular en particular
+        }
+        catch (Exception e) {
+             Console.WriteLine(e.Message); 
         }
     }
 }
