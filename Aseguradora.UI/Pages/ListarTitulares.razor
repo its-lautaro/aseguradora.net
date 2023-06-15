@@ -1,11 +1,12 @@
 @page "/titulares"
-<!-- falta el modificar -->
 
-@inject NavigationManager Navegador;
-@inject ListarTitularesUseCase listarTitulares;
-@inject EliminarTitularUseCase eliminarTitular;
-@inject ModificarTitularUseCase modificarTitular;
-@inject ListarTitularesConSusVehiculosUseCase listarVehiculosTitular;
+@inject NavigationManager Navegador
+@inject ListarTitularesUseCase listarTitulares
+@inject EliminarTitularUseCase eliminarTitular
+@inject ModificarTitularUseCase modificarTitular
+@inject ListarTitularesConSusVehiculosUseCase listarVehiculosTitular
+
+<h3>Listado de titulares </h3>
 
 <NavLink href="/titular" type="button" class="btn btn-success">Agregar Titular</NavLink>
 <table class="table table-striped">
@@ -50,43 +51,22 @@
 
 @code {
     List<Titular> _lista = new List<Titular>();
+
     protected override void OnInitialized()
     {
-        try{
         _lista = listarTitulares.Ejecutar();
-        }catch (Exception e) {
-             Console.WriteLine(e.Message); 
-        }
     }
     private void EliminarTitular(int dni)
     {
-        try
-        {
-            eliminarTitular.Ejecutar(dni);
-            Navegador.NavigateTo(Navegador.Uri, forceLoad: true);
-        }
-        catch (Exception e) {
-             Console.WriteLine(e.Message); 
-        }
+        eliminarTitular.Ejecutar(dni);
+        Navegador.NavigateTo(Navegador.Uri, forceLoad: true);
     }
     private void ModificarTitular(int dni)
     {
-        try
-        {
-            Navegador.NavigateTo($"titular/{dni}");
-        }
-        catch (Exception e) {
-             Console.WriteLine(e.Message); 
-        }
+        Navegador.NavigateTo($"titular/{dni}");
     }
     private void VehiculosTitular(int idT)
     {
-        try
-        {
-            Navegador.NavigateTo($"vehiculos/{idT}"); //veo los vehiculos de un titular en particular
-        }
-        catch (Exception e) {
-             Console.WriteLine(e.Message); 
-        }
+        Navegador.NavigateTo($"vehiculos/{idT}"); //veo los vehiculos de un titular en particular
     }
 }
