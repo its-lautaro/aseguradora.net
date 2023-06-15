@@ -8,11 +8,11 @@
 <form>
     <div class="form-group">
         <label for="valorAsegurado">Valor Asegurado:</label>
-        <input type="text" class="form-control" id="valorAsegurado" @bind="poliza.ValorAsegurado">
+        <input type="text" class="form-control" id="valorAsegurado" @bind="poliza.ValorAsegurado" required>
     </div>
     <div class="form-group">
         <label for="franquicia">Franquicia:</label>
-        <input type="text" class="form-control" id="franquicia" @bind="poliza.Franquicia">
+        <input type="text" class="form-control" id="franquicia" @bind="poliza.Franquicia" required>
     </div>
     @* Generar botones para seleccionar el tipo de cobertura *@
     <div class="form-group">

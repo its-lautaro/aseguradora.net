@@ -13,19 +13,28 @@
     </div>
 </form>
 <Excepcion @ref=dialogo />
-
+<Confirmacion OnConfirmado="Siguiente" @ref=confirmacion />
 @code {
 
     int DNIBuscado;
+    int id;
     Excepcion dialogo = null!;
+    Confirmacion confirmacion = null!;
     private void Buscar()
     {
         Titular? encontrado = buscarTitular.Ejecutar(DNIBuscado);
         if (encontrado == null) dialogo.Mostrar("El titular buscado no existe");
         else
         {
-            //Generar un cartel para confirmar que se trata del titular correcto!!
-            NavigationManager.NavigateTo($"/vehiculo/{encontrado.Id}");
+            id = encontrado.Id;
+            confirmacion.Mensaje = $"Agregar vehículo para {encontrado.Apellido}, {encontrado.Nombre}?";
+            confirmacion.Mostrar();
+
         }
+    }
+
+    private void Siguiente()
+    {
+        NavigationManager.NavigateTo($"/vehiculo/{id}");
     }
 }
