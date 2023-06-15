@@ -1,0 +1,59 @@
+@page "/siniestro/{id}/{dominio}"
+@inject AgregarSiniestroUseCase agregarSiniestro
+@inject NavigationManager NavigationManager
+
+<h3>Agregando siniestro al Vehículo @Dominio</h3>
+
+@* Formulario para agregar Siniestro *@
+<form>
+    <div class="form-group">
+        <label for="direccion">Dirección del accidente:</label>
+        <input type="text" class="form-control" id="direccion" @bind="siniestro.Direccion" required>
+    </div>
+    <div class="form-group">
+        <label for="descripcion">Descripción del accidente:</label>
+        <input type="text" class="form-control" id="descripcion" @bind="siniestro.Descripcion" required>
+    </div>
+    <div class="form-group">
+        <label for="incidente">Fecha del incidente:</label>
+        <input type="date" id="fin" name="fin" @bind="siniestro.Fecha_incidente" />
+    </div>
+    <div class="form-group">
+        <input type="checkbox" id="terceros" @bind="terceros" />
+        <label for="terceros"> Hubo terceros involucrados</label>
+    </div>
+    <button type="button" class="btn btn-primary" @onclick="CrearSiniestro">Crear</button>
+</form>
+@* Componente para mostrar errores *@
+<Excepcion @ref=dialogo />
+
+@code {
+    [Parameter]
+    public string? Id { get; set; }
+    [Parameter]
+    public string? Dominio { get; set; }
+    private bool terceros = false;
+    Siniestro siniestro = new Siniestro();
+    Excepcion dialogo = null!;
+    private void CrearSiniestro()
+    {
+#nullable disable
+        siniestro.PolizaId = int.Parse(Id);
+#nullable restore
+        siniestro.Fecha_ingreso = DateTime.Today;
+        try
+        {
+            agregarSiniestro.Ejecutar(siniestro);
+            if (terceros)
+            {
+                //tengo que agregar un tercero
+                NavigationManager.NavigateTo($"/tercero/{siniestro.Id}");
+            }
+            //termine
+            else NavigationManager.NavigateTo("/siniestros");
+        }catch (Exception e){
+            dialogo.Mostrar(e.Message);
+        }
+
+}
+}

@@ -1,0 +1,76 @@
+@page "/tercero/{id}"
+@inject AgregarTerceroUseCase agregarTercero
+@inject NavigationManager NavigationManager
+
+<h3>Agregar Tercero</h3>
+
+@* Formulario para agregar Tercero *@
+<form>
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" @bind="t.Nombre">
+    </div>
+    <div class="form-group">
+        <label for="apellido">Apellido:</label>
+        <input type="text" class="form-control" id="apellido" @bind="t.Apellido">
+    </div>
+    <div class="form-group">
+        <label for="dni">DNI:</label>
+        <input type="text" class="form-control" id="dni" @bind="t.DNI">
+    </div>
+    <div class="form-group">
+        <label for="telefono">Teléfono:</label>
+        <input type="number" class="form-control" id="telefono" @bind="t.Telefono">
+    </div>
+    <div class="form-group">
+        <label for="aseguradora">Aseguradora:</label>
+        <input type="text" class="form-control" id="aseguradora" @bind="t.Aseguradora">
+    </div>
+    <div class="form-group">
+        <label for="terceros">Hubo otro tercero involucrado?</label>
+        <input type="checkbox" id="terceros" @bind="terceros">
+    </div>
+    <div>
+        <br />
+        <button type="button" class="btn btn-primary" @onclick="CrearTercero">Crear</button>
+    </div>
+</form>
+@* Componente para mostrar errores *@
+<Excepcion @ref=dialogo />
+
+@code {
+    #nullable disable
+    [Parameter]
+    public string Id { get; set; }
+    #nullable restore
+    Tercero t = new Tercero();
+    bool exito = false;
+    bool terceros = false;
+    Excepcion dialogo = null!;
+
+    private void CrearTercero()
+    {
+        try
+        {
+            t.SiniestroId = int.Parse(Id);
+            agregarTercero.Ejecutar(t);
+            exito = true;
+
+        }
+        catch (Exception e)
+        {
+            Error(e.Message);
+        }
+        if (exito)Siguiente();
+    }
+    private void Error(string msj)
+    {
+        dialogo.Mostrar(msj);
+    }
+    // El titular se creo con exito y ahora se le agrega un vehículo
+    private void Siguiente()
+    {
+        if(terceros) NavigationManager.NavigateTo(NavigationManager.Uri,forceLoad:true);
+        else NavigationManager.NavigateTo("/terceros");
+    }
+}

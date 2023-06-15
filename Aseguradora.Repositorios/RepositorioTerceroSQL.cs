@@ -9,10 +9,11 @@ public class RepositorioTerceroSQL : IRepositorioTercero
     {
         if (!esUnico(t)) throw new Exception("Error al agregar. El dni ya existe");
         db.Terceros.Add(t);
+        db.SaveChanges();
     }
     private bool esUnico(Tercero t)
     {
-        if (db.Titulares.Any(n => n.DNI == t.DNI)) return false;
+        if (db.Terceros.Any(n => n.DNI == t.DNI)) return false;
         else return true;
     }
 
