@@ -30,7 +30,6 @@
 @code {
     [Parameter]
     public string? Id { get; set; }
-    bool exito = false;
     Excepcion dialogo = null!;
     Vehiculo vehiculo = new Vehiculo();
 
@@ -45,21 +44,15 @@
         try
         {
             agregarVehiculo.Ejecutar(vehiculo);
-            exito = true;
+            Siguiente();
 
         }
         catch (Exception e)
         {
-            Error(e.Message);
+            dialogo.Mostrar(e.Message);
         }
-        if (exito) Siguiente();
     }
-
-
-    private void Error(string msj)
-    {
-        dialogo.Mostrar(msj);
-    }
+    
     // El vehiculo se creo con exito y ahora se le agrega la poliza
     private void Siguiente()
     {

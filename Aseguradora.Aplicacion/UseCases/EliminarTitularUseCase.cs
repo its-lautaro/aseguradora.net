@@ -31,7 +31,6 @@ public class EliminarTitularUseCase
         //el titular puede no tener vehiculos
         if (vehiculos != null)
         {
-            Console.WriteLine($"eliminando vehiculos del titular {eliminado.Id}");
             foreach (Vehiculo v in vehiculos)
             {
                 eliminarPoliza.Ejecutar(v.Id);

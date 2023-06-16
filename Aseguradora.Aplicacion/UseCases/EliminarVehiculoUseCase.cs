@@ -23,13 +23,11 @@ public class EliminarVehiculoUseCase
 
         foreach(Poliza poliza in polizas){
             if(poliza.VehiculoId == id){
-                Console.WriteLine("Se encontra la poliza con id "+ poliza.Id);
                 idP=poliza.Id;
                 break;
             }
         }
         //chequeo que tenga poliza
         if(idP!=-1)  eliminarPoliza.Ejecutar(idP);
-        else Console.WriteLine($"Este auto con id {id} no tenia poliza");
     }    
 }
