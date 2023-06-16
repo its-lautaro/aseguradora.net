@@ -45,10 +45,7 @@ public class RepositorioVehiculoSQL : IRepositorioVehiculo
 
     }
     public Vehiculo? BuscarVehiculo(int id){
-        //La propiedad id del vehiculo nunca va a ser null si esta persistido en la base de datos
-        #nullable disable
-        Vehiculo encontrado = db.Vehiculos.Where(n => n.Id == id).SingleOrDefault();
-        #nullable restore
+        Vehiculo? encontrado = db.Vehiculos.Where(n => n.Id == id).SingleOrDefault();
         return encontrado;
     }
 }

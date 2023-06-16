@@ -9,19 +9,19 @@
 
 <NavLink href="/poliza" type="button" class="btn btn-success">Agregar Poliza</NavLink>
 <table class="table table-striped">
-  <thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">ID Vehiculo</th>
-        <th scope="col">Valor Asegurado</th>
-        <th scope="col">Franquicia</th>
-        <th scope="col">Tipo de Cobertura</th>
-        <th scope="col">Fecha inicio</th>
-        <th scope="col">Fecha fin</th>
-        <th scope="col">&nbsp;</th> 
-    </tr>
-  </thead>
-  <tbody>
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">ID Vehiculo</th>
+            <th scope="col">Valor Asegurado</th>
+            <th scope="col">Franquicia</th>
+            <th scope="col">Tipo de Cobertura</th>
+            <th scope="col">Fecha inicio</th>
+            <th scope="col">Fecha fin</th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
         <tr>
             <td>@poliza.Id</td>
             <td>@poliza.VehiculoId</td>
@@ -44,15 +44,16 @@
 
 @code {
     [Parameter]
-    public string? idV {get; set;}
+    public string? idV { get; set; }
     Poliza poliza = new Poliza();
     Vehiculo vehiculo = new Vehiculo();
     protected override void OnInitialized()
     {
-        #nullable disable
-        poliza = listarPolizas.Ejecutar().Where(n => n.VehiculoId == int.Parse(idV)).SingleOrDefault();
-        vehiculo = listarVehiculos.Ejecutar().Where(n => n.Id == int.Parse(idV)).SingleOrDefault();
-        #nullable restore
+        if (idV != null)
+        {
+            poliza = listarPolizas.Ejecutar().Where(n => n.VehiculoId == int.Parse(idV)).SingleOrDefault() ?? new Poliza(){Id =-1};
+            vehiculo = listarVehiculos.Ejecutar().Where(n => n.Id == int.Parse(idV)).SingleOrDefault() ?? new Vehiculo(){Id =-1};
+        }
     }
     private void EliminarPoliza(int id)
     {

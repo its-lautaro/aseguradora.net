@@ -61,10 +61,7 @@ public class RepositorioTitularSQL : IRepositorioTitular
     }
 
     public Titular? BuscarTitular(int dni){
-        //La propiedad dni del titular nunca va a ser null si esta persistido en la base de datos
-        #nullable disable
-        Titular encontrado = db.Titulares.Where(n => n.DNI == dni).SingleOrDefault();
-        #nullable restore
+        Titular? encontrado = db.Titulares.Where(n => n.DNI == dni).SingleOrDefault();
         return encontrado;
     }
 }

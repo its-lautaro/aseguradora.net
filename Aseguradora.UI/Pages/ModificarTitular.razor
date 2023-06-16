@@ -39,34 +39,45 @@
     </div>
 </form>
 @* Componente para mostrar errores *@
+<Excepcion @ref=dialogo />
+@* Componente para pedir confirmacion *@
 <Confirmacion OnConfirmado="GuardarTitular" @ref=confirmacion />
 
 
 
 @code {
     [Parameter]
-    public string? dniT {get; set;}
+    public string? dniT { get; set; }
 
     Titular titular = new Titular();
+    Excepcion dialogo = null!;
+
     Confirmacion confirmacion = null!;
 
     protected override void OnInitialized()
     {
-        //ya se que siempre voy a modificar un titular que existe
-        #nullable disable
-        titular = buscarTitular.Ejecutar(int.Parse(dniT));
-        #nullable restore
+        if (dniT != null)
+        {
+            titular = buscarTitular.Ejecutar(int.Parse(dniT)) ?? new Titular() { Id = 0 };
+        }
     }
     private void EditarTitular()
     {
         confirmacion.Mensaje = $"Desea guardar los cambios?";
         confirmacion.Mostrar();
-    
+
     }
     private void GuardarTitular()
     {
-        modificarTitular.Ejecutar(titular);
-        NavigationManager.NavigateTo($"titulares");
+        if (titular.Id == 0)
+        {
+            dialogo.Mostrar("El titular que usted intenta modificar no existe");
+        }
+        else
+        {
+            modificarTitular.Ejecutar(titular);
+            NavigationManager.NavigateTo($"titulares");
+        }
     }
-    
+
 }

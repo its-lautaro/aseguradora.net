@@ -56,25 +56,17 @@
 
 
 @code {
-    //El parametro de la id nunca es null
-#nullable disable
     [Parameter]
-    public string idP { get; set; }
-#nullable restore
+    public string? idP { get; set; }
     Poliza poliza = new Poliza();
     Confirmacion confirmacion = null!;
     Excepcion dialogo = null!;
 
     protected override void OnInitialized()
     {
-        try
-        {
-            poliza = buscarPoliza.Ejecutar(int.Parse(idP));
-        }
-        catch
-        {
-            //esto evita que se rompa si se accede por url a una poliza que no existe
-        }
+        if (idP != null) poliza = buscarPoliza.Ejecutar(int.Parse(idP)) ?? new Poliza { Id = 0 };
+
+
     }
     private void EditarPoliza()
     {

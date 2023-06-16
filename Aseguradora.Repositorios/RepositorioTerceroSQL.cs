@@ -50,9 +50,7 @@ public class RepositorioTerceroSQL : IRepositorioTercero
     }
     public Tercero? BuscarTercero(int id){
         //La propiedad id de la poliza nunca va a ser null si esta persistido en la base de datos
-        #nullable disable
-        Tercero encontrado = db.Terceros.Where(n => n.Id == id).SingleOrDefault();
-        #nullable restore
+        Tercero? encontrado = db.Terceros.Where(n => n.Id == id).SingleOrDefault();
         return encontrado;
     }
 }

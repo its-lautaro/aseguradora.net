@@ -6,6 +6,6 @@ public interface IRepositorioPoliza {
     void EliminarPoliza(int id);
     List<Poliza> ListarPolizas();
     
-    public Poliza BuscarPoliza(int id);
+    public Poliza? BuscarPoliza(int id);
 
 }

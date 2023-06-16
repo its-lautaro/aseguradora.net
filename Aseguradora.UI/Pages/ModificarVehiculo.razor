@@ -32,33 +32,43 @@
     </div>
 </form>
 @* Componente para mostrar errores *@
+<Excepcion @ref=dialogo />
+@* Componente para pedir confirmacion *@
 <Confirmacion OnConfirmado="GuardarVehiculo" @ref=confirmacion />
 
 
 
 @code {
     [Parameter]
-    public string? idV {get; set;}
+    public string? idV { get; set; }
     Vehiculo vehiculo = new Vehiculo();
     Confirmacion confirmacion = null!;
+    Excepcion dialogo = null!;
 
     protected override void OnInitialized()
     {
-        //ya se que siempre voy a modificar un vehiculo que existe
-        #nullable disable
-        vehiculo = buscarVehiculo.Ejecutar(int.Parse(idV));
-        #nullable restore
+        if (idV != null)
+        {
+            vehiculo = buscarVehiculo.Ejecutar(int.Parse(idV)) ?? new Vehiculo() { Id = 0 };
+        }
     }
     private void EditarVehiculo()
     {
         confirmacion.Mensaje = $"Desea guardar los cambios?";
         confirmacion.Mostrar();
-    
+
     }
     private void GuardarVehiculo()
     {
-        modificarVehiculo.Ejecutar(vehiculo);
-        NavigationManager.NavigateTo($"vehiculos");
+        if (vehiculo.Id == 0)
+        {
+            dialogo.Mostrar("El vehiculo que usted intenta modificar no existe");
+        }
+        else
+        {
+            modificarVehiculo.Ejecutar(vehiculo);
+            NavigationManager.NavigateTo($"vehiculos");
+        }
     }
-    
+
 }

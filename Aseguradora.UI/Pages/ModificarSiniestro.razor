@@ -32,24 +32,25 @@
     </div>
 </form>
 @* Componente para mostrar errores *@
+<Excepcion @ref=dialogo />
+@* Componente para pedir confirmacion *@
 <Confirmacion OnConfirmado="GuardarSiniestro" @ref=confirmacion />
 
 
 
 @code {
     [Parameter]
-    public string? idS {get; set;}
+    public string? idS { get; set; }
     Siniestro siniestro = new Siniestro();
     private bool terceros = false;
+    Excepcion dialogo = null!;
 
     Confirmacion confirmacion = null!;
 
     protected override void OnInitialized()
     {
-        //ya se que siempre voy a modificar un vehiculo que existe
-        #nullable disable
-        siniestro = buscarSiniestro.Ejecutar(int.Parse(idS));
-        #nullable restore
+        //Id 0 significa que no existe el siniestro buscado
+        if (idS != null) siniestro = buscarSiniestro.Ejecutar(int.Parse(idS)) ?? new Siniestro() { Id = 0 };
     }
     private void EditarSiniestro()
     {
@@ -59,14 +60,22 @@
             NavigationManager.NavigateTo($"/tercero/{siniestro.Id}");
         }
         //termine
-        else {
+        else
+        {
             confirmacion.Mensaje = $"Desea guardar los cambios?";
             confirmacion.Mostrar();
         }
     }
     private void GuardarSiniestro()
     {
-        modificarSiniestro.Ejecutar(siniestro);
-        NavigationManager.NavigateTo($"siniestros");
+        if (siniestro.Id == 0)
+        {
+            dialogo.Mostrar("El siniestro que usted intenta modificar no existe");
+        }
+        else
+        {
+            modificarSiniestro.Ejecutar(siniestro);
+            NavigationManager.NavigateTo($"siniestros");
+        }
     }
 }

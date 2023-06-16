@@ -37,9 +37,7 @@
     Excepcion dialogo = null!;
     private void CrearSiniestro()
     {
-#nullable disable
-        siniestro.PolizaId = int.Parse(Id);
-#nullable restore
+        if (Id != null) siniestro.PolizaId = int.Parse(Id);
         siniestro.Fecha_ingreso = DateTime.Today;
         try
         {

@@ -40,9 +40,8 @@ public class RepositorioPolizaSQL : IRepositorioPoliza
         List<Poliza> lista = db.Polizas.ToList();
         return lista;
     }
-    public Poliza BuscarPoliza(int id){
+    public Poliza? BuscarPoliza(int id){
         Poliza? encontrado = db.Polizas.Where(n => n.Id == id).SingleOrDefault();
-        if (encontrado == null) throw new Exception("La poliza buscada no existe");
         return encontrado;
     }
 }

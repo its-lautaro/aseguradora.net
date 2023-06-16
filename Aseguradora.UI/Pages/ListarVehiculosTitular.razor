@@ -9,16 +9,16 @@
 
 <button type="button" class="btn btn-success" @onclick="()=>OtroVehiculo()">Agregar Vehiculo</button>
 <table class="table table-striped">
-  <thead>
-    <tr>
-        <th scope="col">ID</th>
-        <th scope="col">Dominio</th>
-        <th scope="col">Marca</th>
-        <th scope="col">Año</th>
-        <th scope="col">&nbsp;</th> 
-    </tr>
-  </thead>
-  <tbody>
+    <thead>
+        <tr>
+            <th scope="col">ID</th>
+            <th scope="col">Dominio</th>
+            <th scope="col">Marca</th>
+            <th scope="col">Año</th>
+            <th scope="col">&nbsp;</th>
+        </tr>
+    </thead>
+    <tbody>
         @foreach (var vehiculo in listaV)
         {
             <tr>
@@ -34,7 +34,8 @@
                         <span class="oi oi-trash"></span>
                     </button>
                     <button type="button" class="btn btn-secondary" @onclick="()=>MiPoliza(vehiculo.Id)">Poliza</button>
-                    <button type="button" class="btn btn-warning" @onclick="()=>AgregarSiniestro(vehiculo.Id, vehiculo.Dominio)">Nuevo Siniestro</button>
+                    <button type="button" class="btn btn-warning"
+                    @onclick="()=>AgregarSiniestro(vehiculo.Id, vehiculo.Dominio)">Nuevo Siniestro</button>
                 </td>
             </tr>
         }
@@ -43,21 +44,21 @@
 
 @code {
     [Parameter]
-    public string? idT {get; set;}
+    public string? idT { get; set; }
 
     //guardarme el titular para poder mostrar su nombre arriba
     Titular titu = new Titular();
     List<Titular> _lista = new List<Titular>();
     List<Vehiculo> listaV = new List<Vehiculo>();
-    
+
     protected override void OnInitialized()
     {
-        #nullable disable
         _lista = listarVehiculosTitular.Ejecutar();//se le asignan todos sus vehiculos a los titulares
-        //siempre le voy a pedir de un titular que existe
-        titu = _lista.Where(n => n.Id == int.Parse(idT)).SingleOrDefault();
-        listaV = titu.Vehiculos;
-        #nullable restore
+        if (idT != null)
+        {
+            titu = _lista.Where(n => n.Id == int.Parse(idT)).SingleOrDefault() ?? new Titular() { Id = -1 };
+            listaV = titu.Vehiculos;
+        }
     }
     private void EliminarVehiculo(int id)
     {
@@ -74,9 +75,10 @@
     }
     private void AgregarSiniestro(int idV, string dom)
     {
-        Navegador.NavigateTo($"siniestro/{idV}/{dom}"); 
+        Navegador.NavigateTo($"siniestro/{idV}/{dom}");
     }
-    private void OtroVehiculo(){
-        Navegador.NavigateTo($"vehiculo/{idT}"); 
+    private void OtroVehiculo()
+    {
+        Navegador.NavigateTo($"vehiculo/{idT}");
     }
 }

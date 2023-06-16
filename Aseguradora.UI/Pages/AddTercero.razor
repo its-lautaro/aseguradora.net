@@ -39,10 +39,8 @@
 <Excepcion @ref=dialogo />
 
 @code {
-    #nullable disable
     [Parameter]
-    public string Id { get; set; }
-    #nullable restore
+    public string? Id { get; set; }
     Tercero t = new Tercero();
     bool exito = false;
     bool terceros = false;
@@ -52,7 +50,7 @@
     {
         try
         {
-            t.SiniestroId = int.Parse(Id);
+            if (Id != null) t.SiniestroId = int.Parse(Id);
             agregarTercero.Ejecutar(t);
             exito = true;
 

@@ -35,34 +35,43 @@
     </div>
 </form>
 @* Componente para mostrar errores *@
+<Excepcion @ref=dialogo />
+@* Componente para pedir confirmacion *@
 <Confirmacion OnConfirmado="GuardarTercero" @ref=confirmacion />
 
 
 
 @code {
     [Parameter]
-    public string? idTer {get; set;}
+    public string? idTer { get; set; }
 
     Tercero tercero = new Tercero();
     Confirmacion confirmacion = null!;
+    Excepcion dialogo = null!;
+
 
     protected override void OnInitialized()
     {
-        //ya se que siempre voy a modificar un titular que existe
-        #nullable disable
-        tercero = buscarTercero.Ejecutar(int.Parse(idTer));
-        #nullable restore
+        if (idTer != null) tercero = buscarTercero.Ejecutar(int.Parse(idTer)) ?? new Tercero() { Id = 0 };
     }
     private void EditarTercero()
     {
         confirmacion.Mensaje = $"Desea guardar los cambios?";
         confirmacion.Mostrar();
-    
+
     }
     private void GuardarTercero()
     {
-        modificarTercero.Ejecutar(tercero);
-        NavigationManager.NavigateTo($"terceros");
+        if (tercero.Id == 0)
+        {
+            dialogo.Mostrar("El tercero que usted intenta modificar no existe");
+        }
+        else
+        {
+            modificarTercero.Ejecutar(tercero);
+            NavigationManager.NavigateTo($"terceros");
+        }
+
     }
-    
+
 }
