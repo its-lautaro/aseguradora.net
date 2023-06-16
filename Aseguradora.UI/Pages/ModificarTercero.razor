@@ -1,0 +1,68 @@
+@page "/editTercero/{idTer}"
+
+@inject ModificarTerceroUseCase modificarTercero
+@inject BuscarTerceroUseCase buscarTercero
+@inject NavigationManager NavigationManager
+
+
+<h3>Datos de @tercero.Nombre @tercero.Apellido </h3>
+
+@* Formulario para editar Titular *@
+<form>
+    <div class="form-group">
+        <label for="nombre">Nombre:</label>
+        <input type="text" class="form-control" id="nombre" @bind="tercero.Nombre">
+    </div>
+    <div class="form-group">
+        <label for="apellido">Apellido:</label>
+        <input type="text" class="form-control" id="apellido" @bind="tercero.Apellido">
+    </div>
+    <div class="form-group">
+        <label for="dni">DNI:</label>
+        <input class="form-control" type="text" value=@tercero.DNI readonly>
+    </div>
+    <div class="form-group">
+        <label for="telefono">Teléfono:</label>
+        <input type="number" class="form-control" id="telefono" @bind="tercero.Telefono">
+    </div>
+    <div class="form-group">
+        <label for="correo">Aseguradora:</label>
+        <input type="text" class="form-control" id="correo" @bind="tercero.Aseguradora">
+    </div>
+    <div>
+        <br />
+        <button type="button" class="btn btn-primary" @onclick="EditarTercero">Guardar</button>
+    </div>
+</form>
+@* Componente para mostrar errores *@
+<Confirmacion OnConfirmado="GuardarTercero" @ref=confirmacion />
+
+
+
+@code {
+    [Parameter]
+    public string? idTer {get; set;}
+
+    Tercero tercero = new Tercero();
+    Confirmacion confirmacion = null!;
+
+    protected override void OnInitialized()
+    {
+        //ya se que siempre voy a modificar un titular que existe
+        #nullable disable
+        tercero = buscarTercero.Ejecutar(int.Parse(idTer));
+        #nullable restore
+    }
+    private void EditarTercero()
+    {
+        confirmacion.Mensaje = $"Desea guardar los cambios?";
+        confirmacion.Mostrar();
+    
+    }
+    private void GuardarTercero()
+    {
+        modificarTercero.Ejecutar(tercero);
+        NavigationManager.NavigateTo($"terceros");
+    }
+    
+}

@@ -1,36 +1,61 @@
 @page "/terceros"
-@inject ListarTercerosUseCase listarTerceros;
 
-<table>
-    <thead>
-        <tr>
-            <td>ID</td>
-            <td>Nombre</td>
-            <td>Apellido</td>
-            <td>Aseguradora</td>
-            <td>Telefono</td>
-            <td>Siniestro</td>
-        </tr>
-    </thead>
-    <tbody>
-        @foreach (var titular in _lista)
+@inject NavigationManager Navegador
+@inject ListarTercerosUseCase listarTerceros
+@inject EliminarTerceroUseCase eliminarTercero
+@inject ModificarTerceroUseCase modificarTercero
+
+<h3>Listado de terceros </h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Apellido</th>
+        <th scope="col">Nombre</th>
+        <th scope="col">DNI</th>
+        <th scope="col">Telefono</th>
+        <th scope="col">Aseguradora</th>
+        <th scope="col">&nbsp;</th> 
+    </tr>
+  </thead>
+  <tbody>
+        @foreach (var tercero in _lista)
         {
             <tr>
-                <td>@titular.Id</td>
-                <td>@titular.Nombre</td>
-                <td>@titular.Apellido</td>
-                <td>@titular.Telefono</td>
-                <td>@titular.Aseguradora</td>
-                <td>@titular.SiniestroId</td>
+                <td>@tercero.Id</td>
+                <td>@tercero.Apellido</td>
+                <td>@tercero.Nombre</td>
+                <td>@tercero.DNI</td>
+                <td>@tercero.Telefono</td>
+                <td>@tercero.Aseguradora</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarTercero(tercero.Id)">
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>EliminarTercero(tercero.Id)">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                </td>
             </tr>
         }
     </tbody>
 </table>
 
 @code {
-    List<Tercero> _lista= new List<Tercero>();
+    List<Tercero> _lista = new List<Tercero>();
+
     protected override void OnInitialized()
     {
         _lista = listarTerceros.Ejecutar();
+    }
+    private void EliminarTercero(int id)
+    {
+        eliminarTercero.Ejecutar(id);
+        Navegador.NavigateTo(Navegador.Uri, forceLoad: true);
+    }
+    private void ModificarTercero(int id)
+    {
+        Navegador.NavigateTo($"editTercero/{id}");
     }
 }
