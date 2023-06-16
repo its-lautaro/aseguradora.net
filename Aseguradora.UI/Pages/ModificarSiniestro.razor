@@ -74,8 +74,15 @@
         }
         else
         {
-            modificarSiniestro.Ejecutar(siniestro);
-            NavigationManager.NavigateTo($"siniestros");
+            try
+            {
+                modificarSiniestro.Ejecutar(siniestro);
+                NavigationManager.NavigateTo($"siniestros");
+            }
+            catch (Exception e)
+            {
+                dialogo.Mostrar(e.Message);
+            }
         }
     }
 }
