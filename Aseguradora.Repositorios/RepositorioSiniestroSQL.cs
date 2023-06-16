@@ -40,4 +40,11 @@ public class RepositorioSiniestroSQL : IRepositorioSiniestro
         List<Siniestro> lista = db.Siniestros.ToList();
         return lista;
     }
+    public Siniestro? BuscarSiniestro(int id){
+        //La propiedad id del siniestro nunca va a ser null si esta persistido en la base de datos
+        #nullable disable
+        Siniestro encontrado = db.Siniestros.Where(n => n.Id == id).SingleOrDefault();
+        #nullable restore
+        return encontrado;
+    }
 }
