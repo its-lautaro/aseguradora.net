@@ -8,8 +8,10 @@ public class AgregarTitularUseCase
     {
         this._repo = repo;
     }
+    
     public void Ejecutar(Titular titular)
     {
         _repo.AgregarTitular(titular);
-    }    
+
+    }
 }

@@ -5,8 +5,11 @@ namespace Aseguradora.Repositorios;
 public class RepositorioTitularSQL : IRepositorioTitular
 {
     AseguradoraContext db = new AseguradoraContext();
+    
+    //Arroja una excepcion si el titular ya existe o si los campos son invalidos
     public void AgregarTitular(Titular t)
     {
+        if (t.Nombre == "" | t.Apellido == "" | t.DNI < 0) throw new Exception("Nombre, Apellido y DNI deben tener valores validos");
         if (!esUnico(t)) throw new Exception("Error al agregar. El dni ya existe");
 
         db.Add(t);

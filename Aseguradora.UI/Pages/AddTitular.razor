@@ -41,7 +41,6 @@
 
 @code {
     Titular titular = new Titular();
-    bool exito =false;
     Excepcion dialogo = null!;
 
     private void CrearTitular()
@@ -49,20 +48,13 @@
         try
         {
             agregarTitular.Ejecutar(titular);
-            exito=true;
+            Siguiente();
 
         }
         catch (Exception e)
         {
-            Error(e.Message);
+            dialogo.Mostrar(e.Message);
         }
-        if (exito) Siguiente();
-    }
-
-
-    private void Error(string msj)
-    {
-        dialogo.Mostrar(msj);
     }
     // El titular se creo con exito y ahora se le agrega un vehículo
     private void Siguiente()
