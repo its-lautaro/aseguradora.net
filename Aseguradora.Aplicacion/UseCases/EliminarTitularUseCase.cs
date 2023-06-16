@@ -3,20 +3,42 @@ using Aseguradora.Aplicacion.Entidades;
 using Aseguradora.Aplicacion.Interfaces;
 public class EliminarTitularUseCase
 {
-    private readonly IRepositorioVehiculo _repoV;
     private readonly IRepositorioTitular _repoT;
-    public EliminarTitularUseCase(IRepositorioTitular repoT,IRepositorioVehiculo repoV)
+
+    private ListarTitularesConSusVehiculosUseCase listarTitularesConVehiculos;
+    private EliminarPolizaUseCase eliminarPoliza;
+
+    public EliminarTitularUseCase(IRepositorioTitular repoT, IRepositorioVehiculo repoV, IRepositorioPoliza repoP, IRepositorioSiniestro repoS, IRepositorioTercero repoTer)
     {
-        _repoV = repoV;
         _repoT = repoT;
+
+        listarTitularesConVehiculos = new ListarTitularesConSusVehiculosUseCase(repoT, repoV);
+        eliminarPoliza = new EliminarPolizaUseCase(repoP,repoS,repoTer);
     }
     public void Ejecutar(int dni)
-    {   
-        Titular eliminado = _repoT.EliminarTitular(dni);
-        List<Vehiculo> list = _repoV.ListarVehiculos();
-
-        foreach (Vehiculo v in list){
-            if (v.TitularId == eliminado.Id) _repoV.EliminarVehiculo(v.Id);
+    {
+        //el titular a eliminar no existe
+        int id;
+        Titular? eliminado = _repoT.BuscarTitular(dni);
+        if (eliminado!=null){
+            id = eliminado.Id;
+        }else{
+            throw new Exception($"El titular con dni {dni} no existe");
         }
-    }    
+
+        List<Vehiculo>? vehiculos = listarTitularesConVehiculos.Ejecutar().Find(t => t.Id == id)?.Vehiculos;
+
+        //el titular puede no tener vehiculos
+        if (vehiculos != null)
+        {
+            Console.WriteLine($"eliminando vehiculos del titular {eliminado.Id}");
+            foreach (Vehiculo v in vehiculos)
+            {
+                eliminarPoliza.Ejecutar(v.Id);
+            }
+        }
+
+        //finalmente elimino el titular (elimina en cascada los vehiculos)
+        _repoT.EliminarTitular(dni);
+    }
 }

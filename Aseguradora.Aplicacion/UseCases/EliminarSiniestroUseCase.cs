@@ -4,25 +4,28 @@ using Aseguradora.Aplicacion.Interfaces;
 public class EliminarSiniestroUseCase
 {
     private readonly IRepositorioSiniestro _repoS;
-    private readonly IRepositorioTercero _repoT;
-    public EliminarSiniestroUseCase(IRepositorioTercero repoT,IRepositorioSiniestro repoS)
+
+    private readonly EliminarTerceroUseCase eliminarTercero;
+    private readonly ListarTercerosUseCase listarTerceros;
+    public EliminarSiniestroUseCase(IRepositorioTercero repoT, IRepositorioSiniestro repoS)
     {
         _repoS = repoS;
-        _repoT = repoT;
+
+        eliminarTercero = new EliminarTerceroUseCase(repoT);
+        listarTerceros = new ListarTercerosUseCase(repoT);
     }
     public void Ejecutar(int id)
-    {   
+    {
         _repoS.EliminarSiniestro(id);
 
-        List<Tercero> list = _repoT.ListarTerceros();
-        int idT=-1;
-        //Eliminar el tercero involucrado en el siniestro
-        foreach (Tercero t in list){
-            if (t.SiniestroId == id ){
-                idT=t.Id;
-                break;
+        //puede haber mas de un tercero involucrado en el siniestro
+        List<Tercero> terceros = listarTerceros.Ejecutar();
+        foreach (Tercero t in terceros)
+        {
+            if (t.SiniestroId == id)
+            {
+                eliminarTercero.Ejecutar(t.Id);
             }
         }
-        _repoT.EliminarTercero(idT);
-    }    
+    }
 }

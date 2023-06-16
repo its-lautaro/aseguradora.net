@@ -42,9 +42,13 @@ public class RepositorioTitularSQL : IRepositorioTitular
 
         if (borrar == null) throw new Exception("Error al borrar. No existe el dni");
 
+        int id = borrar.Id;
+
         db.Remove(borrar);
 
         db.SaveChanges();
+
+        borrar.Id = id;
 
         return borrar;
     }

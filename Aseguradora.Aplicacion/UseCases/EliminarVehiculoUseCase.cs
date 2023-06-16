@@ -4,26 +4,32 @@ using Aseguradora.Aplicacion.Interfaces;
 public class EliminarVehiculoUseCase
 {
     private readonly IRepositorioVehiculo _repoV;
-    private readonly IRepositorioPoliza _repoP;
+    private EliminarPolizaUseCase eliminarPoliza;
+    private ListarPolizasUseCase listarPolizas;
 
-    public EliminarVehiculoUseCase(IRepositorioVehiculo repoV, IRepositorioPoliza repoP)
+    public EliminarVehiculoUseCase(IRepositorioVehiculo repoV, IRepositorioPoliza repoP, IRepositorioSiniestro repoS, IRepositorioTercero repoT)
     {
         this._repoV = repoV;
-        this._repoP= repoP;
+        
+        eliminarPoliza = new EliminarPolizaUseCase(repoP,repoS,repoT);
+        listarPolizas = new ListarPolizasUseCase(repoP);
     }
     public void Ejecutar(int id)
     {
         _repoV.EliminarVehiculo(id);
         int idP =-1;
         //suponiendo que hay una poliza por vehiculo
-        List<Poliza> polizas = _repoP.ListarPolizas();
+        List<Poliza> polizas = listarPolizas.Ejecutar();
+
         foreach(Poliza poliza in polizas){
             if(poliza.VehiculoId == id){
+                Console.WriteLine("Se encontra la poliza con id "+ poliza.Id);
                 idP=poliza.Id;
                 break;
             }
         }
         //chequeo que tenga poliza
-        if(idP!=-1)  _repoP.EliminarPoliza(idP);
+        if(idP!=-1)  eliminarPoliza.Ejecutar(idP);
+        else Console.WriteLine($"Este auto con id {id} no tenia poliza");
     }    
 }
