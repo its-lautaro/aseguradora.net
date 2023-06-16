@@ -1,0 +1,60 @@
+@page "/siniestros"
+
+@inject NavigationManager Navegador
+@inject ListarSiniestrosUseCase listarSiniestros
+@inject EliminarSiniestroUseCase eliminarSiniestro
+
+
+<h3>Listado de siniestros </h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">Dirección</th>
+        <th scope="col">Descripción</th>
+        <th scope="col">Fecha</th>
+        <th scope="col">Fecha ingreso</th>
+        <th scope="col">ID Poliza</th>
+        <th scope="col">&nbsp;</th> 
+    </tr>
+  </thead>
+  <tbody>
+        @foreach (var siniestro in _lista)
+        {
+            <tr>
+                <td>@siniestro.Id</td>
+                <td>@siniestro.Direccion</td>
+                <td>@siniestro.Descripcion</td>
+                <td>@siniestro.Fecha_incidente</td>
+                <td>@siniestro.Fecha_ingreso</td>
+                <td>@siniestro.PolizaId</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarSiniestro(siniestro.Id)">
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>EliminarSiniestro(siniestro.Id)">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<Siniestro> _lista = new List<Siniestro>();
+    protected override void OnInitialized()
+    {
+        _lista = listarSiniestros.Ejecutar();
+    }
+    private void EliminarSiniestro(int id)
+    {
+        eliminarSiniestro.Ejecutar(id);
+        Navegador.NavigateTo(Navegador.Uri, forceLoad: true);
+    }
+    private void ModificarSiniestro(int id)
+    {
+        Navegador.NavigateTo($"editSiniestro/{id}");
+    }
+}
