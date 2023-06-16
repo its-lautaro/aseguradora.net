@@ -48,38 +48,57 @@
         <button type="button" class="btn btn-primary" @onclick="EditarPoliza">Guardar</button>
     </div>
 </form>
+
 @* Componente para mostrar errores *@
+<Excepcion @ref=dialogo />
+@* Componente para pedir confirmacion *@
 <Confirmacion OnConfirmado="GuardarPoliza" @ref=confirmacion />
 
 
-
 @code {
+    //El parametro de la id nunca es null
+#nullable disable
     [Parameter]
-    public string? idP {get; set;}
+    public string idP { get; set; }
+#nullable restore
     Poliza poliza = new Poliza();
     Confirmacion confirmacion = null!;
+    Excepcion dialogo = null!;
 
     protected override void OnInitialized()
     {
-        //ya se que siempre voy a modificar un vehiculo que existe
-        #nullable disable
-        poliza = buscarPoliza.Ejecutar(int.Parse(idP));
-        #nullable restore
+        try
+        {
+            poliza = buscarPoliza.Ejecutar(int.Parse(idP));
+        }
+        catch
+        {
+            //esto evita que se rompa si se accede por url a una poliza que no existe
+        }
     }
     private void EditarPoliza()
     {
         confirmacion.Mensaje = $"Desea guardar los cambios?";
         confirmacion.Mostrar();
-    
+
     }
     private void GuardarPoliza()
     {
-        modificarPoliza.Ejecutar(poliza);
-        NavigationManager.NavigateTo($"polizas");
+
+        if (poliza.Id == 0)
+        {
+            dialogo.Mostrar("La poliza que usted intenta modificar no existe");
+        }
+        else
+        {
+
+            modificarPoliza.Ejecutar(poliza);
+            NavigationManager.NavigateTo($"polizas");
+        }
     }
     private void UpdateCobertura(Poliza.TipoCobertura value)
     {
         poliza.Cobertura = value;
     }
-    
+
 }

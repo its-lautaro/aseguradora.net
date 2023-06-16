@@ -8,7 +8,7 @@ public class BuscarPolizaUseCase
     {
         this._repo = repo;
     }
-    public Poliza? Ejecutar(int id)
+    public Poliza Ejecutar(int id)
     {
         return _repo.BuscarPoliza(id);
     }    
