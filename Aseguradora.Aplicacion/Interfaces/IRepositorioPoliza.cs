@@ -5,4 +5,7 @@ public interface IRepositorioPoliza {
     void ModificarPoliza(Poliza poliza);
     void EliminarPoliza(int id);
     List<Poliza> ListarPolizas();
+    
+    public Poliza? BuscarPoliza(int id);
+
 }

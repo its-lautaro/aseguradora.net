@@ -39,4 +39,11 @@ public class RepositorioPolizaSQL : IRepositorioPoliza
         List<Poliza> lista = db.Polizas.ToList();
         return lista;
     }
+    public Poliza? BuscarPoliza(int id){
+        //La propiedad id de la poliza nunca va a ser null si esta persistido en la base de datos
+        #nullable disable
+        Poliza encontrado = db.Polizas.Where(n => n.Id == id).SingleOrDefault();
+        #nullable restore
+        return encontrado;
+    }
 }
