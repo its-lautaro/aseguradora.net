@@ -7,6 +7,7 @@ public class RepositorioPolizaSQL : IRepositorioPoliza
     AseguradoraContext db = new AseguradoraContext();
     public void AgregarPoliza(Poliza poliza)
     {
+        if (poliza.Fecha_inicio == null | poliza.Fecha_fin == null) throw new Exception("La poliza debe tener fecha de inicio y fin de cobertura");
         db.Add(poliza);
         db.SaveChanges();
     }
