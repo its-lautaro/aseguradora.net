@@ -1,0 +1,61 @@
+@page "/polizas"
+
+@inject NavigationManager Navegador
+@inject ListarPolizasUseCase listarPolizas
+@inject EliminarPolizaUseCase eliminarPoliza
+
+<h3>Listado de polizas </h3>
+
+<table class="table table-striped">
+  <thead>
+    <tr>
+        <th scope="col">ID</th>
+        <th scope="col">ID Vehiculo</th>
+        <th scope="col">Valor Asegurado</th>
+        <th scope="col">Franquicia</th>
+        <th scope="col">Tipo de Cobertura</th>
+        <th scope="col">Fecha inicio</th>
+        <th scope="col">Fecha fin</th>
+        <th scope="col">&nbsp;</th> 
+    </tr>
+  </thead>
+  <tbody>
+        @foreach (var poliza in _lista)
+        {
+            <tr>
+                <td>@poliza.Id</td>
+                <td>@poliza.VehiculoId</td>
+                <td>@poliza.ValorAsegurado</td>
+                <td>@poliza.Franquicia</td>
+                <td>@poliza.Cobertura</td>
+                <td>@poliza.Fecha_inicio</td>
+                <td>@poliza.Fecha_fin</td>
+                <td>
+                    <button class="btn btn-primary" @onclick="()=>ModificarPoliza(poliza.Id)">
+                        <span class="oi oi-pencil"></span>
+                    </button>
+                    <button class="btn btn-danger" @onclick="()=>EliminarPoliza(poliza.Id)">
+                        <span class="oi oi-trash"></span>
+                    </button>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+@code {
+    List<Poliza> _lista = new List<Poliza>();
+    protected override void OnInitialized()
+    {
+        _lista = listarPolizas.Ejecutar();
+    }
+    private void EliminarPoliza(int id)
+    {
+        eliminarPoliza.Ejecutar(id);
+        Navegador.NavigateTo(Navegador.Uri, forceLoad: true);
+    }
+    private void ModificarPoliza(int id)
+    {
+        Navegador.NavigateTo($"editPoliza/{id}");
+    }
+}

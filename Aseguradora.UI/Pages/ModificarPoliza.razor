@@ -1,0 +1,85 @@
+@page "/editPoliza/{idP}"
+
+@inject ModificarPolizaUseCase modificarPoliza
+@inject NavigationManager NavigationManager
+@inject BuscarPolizaUseCase buscarPoliza
+
+
+<h3>Datos de poliza</h3>
+
+@* Formulario para editar poliza *@
+<form>
+    <div class="form-group">
+        <label for="dominio">Valor Asegurado:</label>
+        <input type="text" class="form-control" id="dominio" @bind="poliza.ValorAsegurado">
+    </div>
+    <div class="form-group">
+        <label for="marca">Franquicia:</label>
+        <input type="text" class="form-control" id="marca" @bind="poliza.Franquicia">
+    </div>
+    <div class="form-group">
+        <label>Tipo de Cobertura:</label>
+        <div>
+            <input type="radio" name="Cobertura" id="todoriesgo"
+            @onchange="(() => UpdateCobertura(Poliza.TipoCobertura.TodoRiesgo))" />
+            <label for="todoriesgo">Cobertura contra todo riesgo</label>
+        </div>
+        <div>
+            <input type="radio" name="Cobertura" id="civil"
+            @onchange="(() => UpdateCobertura(Poliza.TipoCobertura.ResponsabilidadCivil))" />
+            <label for="civil">Cobertura de responsabilidad civil</label>
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="inicio">Fecha de inicio de cobertura:</label>
+        <input type="date" id="inicio" name="inicio" @bind="poliza.Fecha_inicio" />
+    </div>
+    <div class="form-group">
+        <label for="fin">Fecha de fin de cobertura:</label>
+        <input type="date" id="fin" name="fin" @bind="poliza.Fecha_fin" />
+    </div>
+    <div class="form-group">
+        <label for="titularId">ID Vehiculo:</label>
+        <input class="form-control" type="number" value=@poliza.VehiculoId readonly>
+    </div>
+
+    <div>
+        <br />
+        <button type="button" class="btn btn-primary" @onclick="EditarPoliza">Guardar</button>
+    </div>
+</form>
+@* Componente para mostrar errores *@
+<Confirmacion OnConfirmado="GuardarPoliza" @ref=confirmacion />
+
+
+
+@code {
+    [Parameter]
+    public string? idP {get; set;}
+    Poliza poliza = new Poliza();
+    Confirmacion confirmacion = null!;
+
+    protected override void OnInitialized()
+    {
+        //ya se que siempre voy a modificar un vehiculo que existe
+        #nullable disable
+        poliza = buscarPoliza.Ejecutar(int.Parse(idP));
+        #nullable restore
+    }
+    private void EditarPoliza()
+    {
+        confirmacion.Mensaje = $"Desea guardar los cambios?";
+        confirmacion.Mostrar();
+    
+    }
+    private void GuardarPoliza()
+    {
+        modificarPoliza.Ejecutar(poliza);
+        NavigationManager.NavigateTo($"polizas");
+    }
+    private void UpdateCobertura(Poliza.TipoCobertura value)
+    {
+        poliza.Cobertura = value;
+    }
+    
+}
