@@ -19,14 +19,17 @@ builder.Services.AddTransient<AgregarTitularUseCase>();
 builder.Services.AddTransient<AgregarVehiculoUseCase>();
 
 builder.Services.AddTransient<EliminarPolizaUseCase>();
+builder.Services.AddTransient<BuscarPolizaUseCase>();
 builder.Services.AddTransient<ListarPolizasUseCase>();
 builder.Services.AddTransient<ModificarPolizaUseCase>();
 
 builder.Services.AddTransient<EliminarSiniestroUseCase>();
+builder.Services.AddTransient<BuscarSiniestroUseCase>();
 builder.Services.AddTransient<ListarSiniestrosUseCase>();
 builder.Services.AddTransient<ModificarSiniestroUseCase>();
 
 builder.Services.AddTransient<EliminarTerceroUseCase>();
+builder.Services.AddTransient<BuscarTerceroUseCase>();
 builder.Services.AddTransient<ListarTercerosUseCase>();
 builder.Services.AddTransient<ModificarTerceroUseCase>();
 

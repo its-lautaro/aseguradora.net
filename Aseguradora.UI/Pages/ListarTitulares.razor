@@ -19,7 +19,6 @@
         <th scope="col">Dirección</th>
         <th scope="col">Telefono</th>
         <th scope="col">Correo</th>
-        <th scope="col">Cant. Vehiculos</th>
         <th scope="col">&nbsp;</th> 
     </tr>
   </thead>
@@ -34,7 +33,6 @@
                 <td>@titular.Direccion</td>
                 <td>@titular.Telefono</td>
                 <td>@titular.Correo</td>
-                <td>@titular.Vehiculos?.Count()</td>
                 <td>
                     <button class="btn btn-primary" @onclick="()=>ModificarTitular(titular.DNI)">
                         <span class="oi oi-pencil"></span>
